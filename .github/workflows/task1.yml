@@ -8,4 +8,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run README check script
-        run: chmod +x ./task_1/src/task1_check_readmefile.sh && ./task_1/src/task1_check_readmefile1.sh
+        run: chmod +x ./task_1/src/check_readmemd.sh && ./task_1/src/check_readmemd.sh
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add README.md
+          git commit -m 'Update status badge in README'
+          git push
+        if: success()

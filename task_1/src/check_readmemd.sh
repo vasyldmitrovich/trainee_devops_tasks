@@ -1,0 +1,26 @@
+#!/bin/bash
+# The file being checked
+FILE="README.md"
+
+# Status badge for GitHub Actions
+BADGE="![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)"
+
+echo "Running the script whether the file exists or not"
+
+# Timestamp
+echo "Current timestamp: $(date)"
+
+# Check file
+if [ ! -f $FILE ]; then
+    echo "Error: $FILE file not found!"
+    exit 1
+fi
+
+# Deleting the old status badge, if it exists
+sed -i '/!\[Check README\]/d' README.md
+
+# Adding a new status badge to the beginning of README.md
+echo -e "$BADGE\n$(cat README.md)" >> README.md
+
+echo "README.md file is updated with the status badge."
+exit 0
