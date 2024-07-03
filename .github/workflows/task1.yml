@@ -1,0 +1,11 @@
+name: Check README file
+
+on: [push]
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run README check script
+        run: chmod +x ./task1_check_readmefile.sh && ./check_readme.sh

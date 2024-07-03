@@ -1,2 +1,2 @@
 # trainee_devops_tasks
-Tasks trainee level
+In this repository will be some different tasks
