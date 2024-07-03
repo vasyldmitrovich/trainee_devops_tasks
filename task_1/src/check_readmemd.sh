@@ -1,6 +1,6 @@
 #!/bin/bash
 # The file being checked
-FILE="README1.md"
+FILE="README.md"
 
 # Status badge for GitHub Actions
 BADGE="![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)"
