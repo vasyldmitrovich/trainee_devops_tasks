@@ -20,7 +20,7 @@ fi
 sed -i '/!\[Check README\]/d' README.md
 
 # Adding a new status badge after text
-sed -i "/### Task1/a $BADGE" README.md
+sed -i "/### Task 1/a $BADGE" README.md
 
 echo "README.md file is updated with the status badge."
 exit 0
