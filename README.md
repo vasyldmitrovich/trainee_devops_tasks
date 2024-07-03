@@ -1,13 +1,6 @@
 # trainee_devops_tasks
-In this repository will be some different tasks
+This repository will contain the status of tasks and tasks
 
 ### Task 1
-Task 1 is: 
-![Task1](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)
 ![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)
-# trainee_devops_tasks
-In this repository will be some different tasks
 
-### Task 1
-Task 1 is: 
-![Task1](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)
