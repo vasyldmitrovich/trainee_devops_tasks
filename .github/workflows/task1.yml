@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run README check script
-        run: chmod +x ./task_1/src/task1_check_readmefile.sh && ./task_1/src/task1_check_readmefile.sh
+        run: chmod +x ./task_1/src/task1_check_readmefile.sh && ./task_1/src/task1_check_readmefile1.sh
