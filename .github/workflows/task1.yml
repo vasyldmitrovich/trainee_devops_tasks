@@ -1,6 +1,12 @@
 name: Check README file
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   check-readme:
