@@ -1,6 +1,6 @@
 #!/bin/bash
 # The file being checked
-FILE="README1.md"
+FILE="README.md"
 
 # Status badge for GitHub Actions
 BADGE="![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/task1.yml/badge.svg)"
@@ -21,7 +21,7 @@ sed -i '/!\[Check README\]/d' README.md
 
 # Adding a new status badge after text
 #sed -i "/### Task 1/a $BADGE" README.md
-echo -e "$(cat README.md)\n$BADGE" > README.md
+echo -e "$(cat README.md)\n$BADGE\n1" > README.md
 
 echo "README.md file is updated with the status badge."
 exit 0
