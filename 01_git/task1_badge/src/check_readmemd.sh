@@ -26,14 +26,14 @@ insert_badge() {
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE $TIMESTAMP\nend---" "$FILE"
+    sed -i "$1i ### Action\n$BADGE $TIMESTAMP\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
 # Find the starting line number of the "### Action" block
 ACTION_BLOCK_START=$(grep -n "### Action" "$FILE" | cut -d: -f1)
 # Find the ending line number of the "### Action" block (denoted by '---')
-ACTION_BLOCK_END=$(grep -n "^end---" "$FILE" | grep -A1 -B1 "### Action" | tail -n1 | cut -d: -f1)
+ACTION_BLOCK_END=$(grep -n "^End!" "$FILE" | grep -A1 -B1 "### Action" | tail -n1 | cut -d: -f1)
 echo "ACTION_BLOCK_START: $ACTION_BLOCK_START"
 echo "ACTION_BLOCK_END: $ACTION_BLOCK_END"
 
