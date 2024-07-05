@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # The file being checked
-FILE="README1.md"
+FILE="README.md"
 
 # Status badge for GitHub Actions
 BADGENAME="Check README"
