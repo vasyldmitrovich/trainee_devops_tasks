@@ -37,7 +37,7 @@ ACTION_BLOCK_END=$(grep -n "^End!" "$FILE" | grep -A1 "^${ACTION_BLOCK_END}" | t
 
 if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]; then
     # If the "### Action" block exists, check if the badge is already present
-    if sed -n "${ACTION_BLOCK_START},${ACTION_BLOCK_END}p" "$FILE" | grep -q "$BADGE"; then
+    if sed -n "${ACTION_BLOCK_START},${ACTION_BLOCK_END}p" "$FILE" | grep -q "$BADGENAME"; then
         echo "Badge already exists in the Action block. Skipping insertion."
     else
         # Insert the badge after the start of the "### Action" block if it's not already there
