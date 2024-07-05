@@ -21,6 +21,11 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git diff --exit-code --quiet || (git add README.md && git commit -m 'Update status badge in README' && git push)
+          git diff --exit-code --quiet || {
+          echo "There are changes in README.md. Committing..."
+          git add README.md 
+          git commit -m 'Update status badge in README' 
+          git push
+          }
       - name: Install python and jinja
         run: echo "Installation in progress..."
