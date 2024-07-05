@@ -26,7 +26,7 @@ insert_badge() {
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE $TIMESTAMP\n---" "$FILE"
+    sed -i "$1i ### Action\n$BADGE $TIMESTAMP\nend---" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
