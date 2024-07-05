@@ -6,10 +6,6 @@ The repository is organized into different folders for each main topic (e.g., Gi
 ### Action
 
 End!
-### Action
-![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg) Friday 05/07/2024 19:05:03 UTC
-
-End!
 
 ## Task List
 
