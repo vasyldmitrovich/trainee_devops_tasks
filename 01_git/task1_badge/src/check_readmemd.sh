@@ -34,8 +34,11 @@ insert_action_block() {
 ACTION_BLOCK_START=$(grep -n "### Action" "$FILE" | cut -d: -f1)
 # Find the ending line number of the "### Action" block (denoted by '---')
 ACTION_BLOCK_END=$(grep -n "^---" "$FILE" | grep -A1 -B1 "### Action" | tail -n1 | cut -d: -f1)
+echo "ACTION_BLOCK_START: $ACTION_BLOCK_START"
+echo "ACTION_BLOCK_END: $ACTION_BLOCK_END"
 
 if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]; then
+  echo 'true is if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]'
     # If the "### Action" block exists, check if the badge is already present
     if sed -n "${ACTION_BLOCK_START},${ACTION_BLOCK_END}p" "$FILE" | grep -q "$BADGE"; then
         echo "Badge already exists in the Action block. Skipping insertion."
@@ -45,6 +48,7 @@ if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]; then
         echo "Badge inserted in the Action block."
     fi
 else
+  echo 'false and check task list'
     # Check for "## Task List" header
     TASK_LIST_LINE=$(grep -n "## Task List" "$FILE" | cut -d: -f1)
 
