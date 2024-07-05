@@ -21,9 +21,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add README.md
-          git commit -m 'Update status badge in README'
-          git push
-        if: success()
+          git diff --quiet || (git add README.md && git commit -m 'Update status badge in README' && git push)
       - name: Install python and jinja
         run: echo "Installation in progress..."

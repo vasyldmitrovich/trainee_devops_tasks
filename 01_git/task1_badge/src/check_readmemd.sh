@@ -45,13 +45,19 @@ if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]; then
         echo "Badge already exists in the Action block."
     fi
 else
-    # If there is no "### Action" block, check for the "## Task List" header
+    # Check for "## Task List" header
     TASK_LIST_LINE=$(grep -n "## Task List" "$FILE" | cut -d: -f1)
 
     if [ -n "$TASK_LIST_LINE" ]; then
-        # Insert the "### Action" block before the "## Task List" header
-        insert_action_block "$((TASK_LIST_LINE - 1))"
-        echo "Action block inserted before Task List."
+        # Check if an action block already exists before the Task List
+        PREVIOUS_LINE=$((TASK_LIST_LINE - 1))
+        if ! sed -n "${PREVIOUS_LINE}p" "$FILE" | grep -q "### Action"; then
+            # Insert the "### Action" block before the "## Task List" header
+            insert_action_block "$PREVIOUS_LINE"
+            echo "Action block inserted before Task List."
+        else
+            echo "Action block already exists before Task List."
+        fi
     else
         # Append the "### Action" block to the end of the file if neither headers are found
         echo -e "\n### Action\n$BADGE $TIMESTAMP\n---" >> "$FILE"
