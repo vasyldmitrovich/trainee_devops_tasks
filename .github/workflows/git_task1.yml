@@ -35,3 +35,14 @@ jobs:
           pip3 install jinja2
       - name: Render Jinja2 template
         run: python3 ./01_git/task2_jinja/render_template.py
+      - name: Commit changes 2
+          env:
+            GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          run: |
+            git config --global user.name 'github-actions'
+            git config --global user.email 'github-actions@github.com'
+            git diff --exit-code --quiet README.md || {
+            git add README.md 
+            git commit -m 'Update Jinja template in README' 
+            git push
+            }
