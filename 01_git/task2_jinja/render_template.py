@@ -6,7 +6,7 @@ build_number = os.getenv('GITHUB_RUN_NUMBER', 'N/A')
 print(f"Current build number: {build_number}")
 
 # Path to the template file
-template_path = 'template.j2'
+template_path = '01_git/task2_jinja/template.j2'
 print(f"Template path: {template_path}")
 
 # Read template content from file
