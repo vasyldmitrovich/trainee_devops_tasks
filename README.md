@@ -32,3 +32,9 @@ To navigate to a specific task, click on the task name in the tables above. Each
 
 v1.0.1
 ---
+
+### My Actions<br>
+![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)<br>
+Version: v1.0.0<br>
+Build Number: 36<br>
+-End-
