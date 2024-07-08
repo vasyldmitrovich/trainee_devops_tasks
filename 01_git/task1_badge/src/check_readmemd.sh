@@ -13,18 +13,18 @@ LANGUAGES_JSON=$(curl -L \
                 -H "Authorization: Bearer $GITHUB_TOKEN" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/languages)
-
 # Calculate the primary language and its percentage
 TOTAL_BYTES=$(echo $LANGUAGES_JSON | jq '. | map(values) | add')
 PRIMARY_LANGUAGE=$(echo $LANGUAGES_JSON | jq -r 'to_entries | max_by(.value) | .key')
 PRIMARY_LANGUAGE_BYTES=$(echo $LANGUAGES_JSON | jq -r --arg lang "$PRIMARY_LANGUAGE" '.[$lang]')
 PRIMARY_LANGUAGE_PERCENTAGE=$(awk "BEGIN {printf \"%.2f\", ($PRIMARY_LANGUAGE_BYTES/$TOTAL_BYTES)*100}")
-
 # Create a badge URL using Shields.io
 LANGUAGE_BADGE="![Primary Language](https://img.shields.io/badge/$PRIMARY_LANGUAGE-$PRIMARY_LANGUAGE_PERCENTAGE%25-blue)"
 
-echo "Running the script whether the file exists or not"
+# A pattern to check the version (for example, a version in the format v1.0.0)
+VERSION_PATTERN="v[0-9]+\.[0-9]+\.[0-9]+"
 
+echo "Running the script whether the file exists or not"
 # Timestamp
 echo "Current timestamp: $TIMESTAMP"
 
@@ -33,6 +33,28 @@ if [ ! -f "$FILE" ]; then
     echo "Error: $FILE file not found!"
     exit 1
 fi
+
+# A function to search for a version in a file
+check_version_in_file() {
+    local file=$1
+    local pattern=$2
+    local version_line
+
+    version_line=$(grep -E "$pattern" "$file")
+
+    if [ -z "$version_line" ]; then
+        echo "Error: No version matching the pattern '$pattern' found in the file."
+        exit 1
+    else
+        echo "Version found: $version_line"
+        # Selection of the version itself from the line
+        local version
+        version=$(echo $version_line | grep -oE "$pattern")
+        echo "Extracted version: $version"
+    fi
+}
+
+check_version_in_file $FILE $VERSION_PATTERN
 
 # Function to insert badge at specific line
 insert_badge() {

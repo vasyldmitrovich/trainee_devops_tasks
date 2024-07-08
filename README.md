@@ -28,6 +28,9 @@ End!
 
 To navigate to a specific task, click on the task name in the tables above. Each task folder contains detailed instructions and source code in the `src` subfolder.
 
+### Version
+
+v.1.0.1
 ---
 
 
