@@ -16,7 +16,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
       - name: Run README check script
-        run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh
+        run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh $GITHUB_TOKEN
       - name: Commit changes
         run: |
           git config --global user.name 'github-actions'
