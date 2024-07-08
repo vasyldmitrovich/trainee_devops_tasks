@@ -4,7 +4,6 @@ This repository will contain tasks and the status of these tasks.
 ### Task Structure
 The repository is organized into different folders for each main topic (e.g., Git, AWS), and each topic folder contains subfolders for individual tasks. Each task folder contains a README file and a `src` folder with the source code or scripts related to the task.
 ### Action
-![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg) Monday 08/07/2024 08:36:15 UTC https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/actions/runs/18/jobs
 
 End!
 
