@@ -17,7 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh
-      - name: Commit changes
+      - name: Commit changes made by script
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
@@ -34,8 +34,8 @@ jobs:
           sudo apt-get install -y python3 python3-pip
           pip3 install jinja2
       - name: Render Jinja2 template
-        run: python3 ./01_git/task2_jinja/render_template.py
-      - name: Commit changes 2
+        run: python3 ./01_git/task2_jinja/src/render_template.py
+      - name: Commit changes made by Jinja template
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |

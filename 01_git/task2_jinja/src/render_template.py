@@ -6,7 +6,7 @@ build_number = os.getenv('GITHUB_RUN_NUMBER', 'N/A')
 print(f"Current build number: {build_number}")
 
 # Path to the template file
-template_path = '01_git/task2_jinja/template.j2'
+template_path = '01_git/task2_jinja/src/template.j2'
 print(f"Template path: {template_path}")
 
 # Read template content from file
@@ -23,7 +23,7 @@ rendered_content = template.render(build_number=build_number)
 print(f"Rendered content:\n{rendered_content}")
 
 # File to update
-file_path = 'README.md'
+file_path = '../README.md'
 print(f"File path to update: {file_path}")
 
 # Read the content of the file
