@@ -35,7 +35,7 @@ jobs:
           pip3 install jinja2
       - name: Render Jinja2 template
         run: python3 ./01_git/task2_jinja/src/render_template.py
-      - name: Commit changes made by Jinja template
+      - name: Commit changes made by Jinja
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |

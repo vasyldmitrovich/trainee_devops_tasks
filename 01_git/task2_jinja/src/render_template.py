@@ -23,7 +23,7 @@ rendered_content = template.render(build_number=build_number)
 print(f"Rendered content:\n{rendered_content}")
 
 # File to update
-file_path = '../README.md'
+file_path = 'README.md'
 print(f"File path to update: {file_path}")
 
 # Read the content of the file
