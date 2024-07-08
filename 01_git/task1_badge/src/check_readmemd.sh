@@ -45,6 +45,7 @@ insert_action_block() {
 }
 
 # Check if there is an existing "### Action" block
+
 # Find the starting line number of the "### Action" block
 ACTION_BLOCK_START=$(grep -n "### Action" "$FILE" | cut -d: -f1)
 # Find the ending line number of the "### Action" block (denoted by '---')
@@ -76,8 +77,13 @@ else
             echo "Action block already exists before Task List."
         fi
     else
+        echo "\n" >> "$FILE"
+        # Find the last line of the file
+        LAST_LINE=$(wc -l < "$FILE")
+
         # Append the "### Action" block to the end of the file if neither headers are found
-        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE\n\nEnd!" >> "$FILE"
+        insert_action_block "$LAST_LINE"
+
         echo "Action block and badge appended to the end of the file."
     fi
 fi
