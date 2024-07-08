@@ -7,6 +7,7 @@ FILE="README.md"
 BADGENAME="Check README"
 BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)"
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
+RUN_NUMBER="https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/actions/runs/$GITHUB_RUN_NUMBER/jobs"
 
 echo "Running the script whether the file exists or not"
 
@@ -21,12 +22,12 @@ fi
 
 # Function to insert badge at specific line
 insert_badge() {
-    sed -i "$1i $BADGE $TIMESTAMP" "$FILE"
+    sed -i "$1i $BADGE $TIMESTAMP $RUN_NUMBER" "$FILE"
 }
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE $TIMESTAMP\n\nEnd!" "$FILE"
+    sed -i "$1i ### Action\n$BADGE $TIMESTAMP $RUN_NUMBER\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
@@ -60,7 +61,7 @@ else
         fi
     else
         # Append the "### Action" block to the end of the file if neither headers are found
-        echo -e "\n### Action\n$BADGE $TIMESTAMP\n\nEnd!" >> "$FILE"
+        echo -e "\n### Action\n$BADGE $TIMESTAMP $RUN_NUMBER\n\nEnd!" >> "$FILE"
         echo "Action block and badge appended to the end of the file."
     fi
 fi
