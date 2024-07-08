@@ -7,10 +7,7 @@ FILE="README.md"
 BADGENAME="Check README"
 BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)"
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
-language="`curl -s https://api.github.com/vasyldmitrovich/trainee_devops_tasks/corefx/languages | jq 'to_entries | max_by(.value) | .key'`"
-echo "THE MOST USES LANGUAGE: $language"
-json_languages="curl https://api.github.com/vasyldmitrovich/trainee_devops_tasks/corefx/languages"
-echo "json_languages: $json_languages"
+TOP_LANGUAGE="https://img.shields.io/github/languages/top/vasyldmitrovich/trainee_devops_tasks"
 
 echo "Running the script whether the file exists or not"
 
@@ -25,12 +22,12 @@ fi
 
 # Function to insert badge at specific line
 insert_badge() {
-    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER" "$FILE"
+    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE" "$FILE"
 }
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER\n\nEnd!" "$FILE"
+    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
@@ -66,7 +63,7 @@ else
         fi
     else
         # Append the "### Action" block to the end of the file if neither headers are found
-        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER\n\nEnd!" >> "$FILE"
+        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE\n\nEnd!" >> "$FILE"
         echo "Action block and badge appended to the end of the file."
     fi
 fi
