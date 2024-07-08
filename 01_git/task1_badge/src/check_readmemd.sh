@@ -8,18 +8,20 @@ BADGENAME="Check README"
 BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)"
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
 
-LANGUAGES_STRING=$(curl -L \
+LANGUAGES_JSON=$(curl -L \
                 -H "Accept: application/vnd.github+json" \
                 -H "Authorization: Bearer $GITHUB_TOKEN" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/languages)
 
-# Parse the JSON and find the language with the maximum usage
-PRIMARY_LANGUAGE=$(echo $LANGUAGES_STRING | jq -r 'to_entries | max_by(.value) | .key')
-echo $PRIMARY_LANGUAGE
-# Create a badge URL using Shields.io
-LANGUAGE_BADGE="![Primary Language](https://img.shields.io/badge/language-$PRIMARY_LANGUAGE-blue)"
+# Calculate the primary language and its percentage
+TOTAL_BYTES=$(echo $LANGUAGES_JSON | jq '. | map(values) | add')
+PRIMARY_LANGUAGE=$(echo $LANGUAGES_JSON | jq -r 'to_entries | max_by(.value) | .key')
+PRIMARY_LANGUAGE_BYTES=$(echo $LANGUAGES_JSON | jq -r --arg lang "$PRIMARY_LANGUAGE" '.[$lang]')
+PRIMARY_LANGUAGE_PERCENTAGE=$(awk "BEGIN {printf \"%.2f\", ($PRIMARY_LANGUAGE_BYTES/$TOTAL_BYTES)*100}")
 
+# Create a badge URL using Shields.io
+LANGUAGE_BADGE="![Primary Language](https://img.shields.io/badge/$PRIMARY_LANGUAGE-$PRIMARY_LANGUAGE_PERCENTAGE%25-blue)"
 
 echo "Running the script whether the file exists or not"
 
