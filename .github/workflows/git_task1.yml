@@ -28,5 +28,10 @@ jobs:
           git commit -m 'Update status badge in README' 
           git push
           }
-      - name: Install python and jinja
-        run: echo "Installation in progress..."
+      - name: Install python and Jinja2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip
+          pip3 install jinja2
+      - name: Render Jinja2 template
+        run: python3 ./01_git/task2_jinja_template/render_template.py

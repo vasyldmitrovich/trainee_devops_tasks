@@ -58,12 +58,12 @@ check_version_in_file $FILE $VERSION_PATTERN
 
 # Function to insert badge at specific line
 insert_badge() {
-    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE" "$FILE"
+    sed -i "$1i $BADGE   Num:$GITHUB_RUN_NUMBER   Language: $LANGUAGE_BADGE" "$FILE"
 }
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE\n\nEnd!" "$FILE"
+    sed -i "$1i ### Action\n$BADGE   Num:$GITHUB_RUN_NUMBER   Language: $LANGUAGE_BADGE\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
