@@ -7,6 +7,10 @@ FILE="README.md"
 BADGENAME="Check README"
 BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)"
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
+language="`curl -s https://api.github.com/vasyldmitrovich/trainee_devops_tasks/corefx/languages | jq 'to_entries | max_by(.value) | .key'`"
+echo "THE MOST USES LANGUAGE: $language"
+json_languages="curl https://api.github.com/vasyldmitrovich/trainee_devops_tasks/corefx/languages"
+echo "json_languages: $json_languages"
 
 echo "Running the script whether the file exists or not"
 
@@ -21,12 +25,12 @@ fi
 
 # Function to insert badge at specific line
 insert_badge() {
-    sed -i "$1i $BADGE #$GITHUB_RUN_NUMBER" "$FILE"
+    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER" "$FILE"
 }
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE #$GITHUB_RUN_NUMBER\n\nEnd!" "$FILE"
+    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
@@ -38,7 +42,9 @@ ACTION_BLOCK_END=$(grep -n "^End!" "$FILE" | grep -A1 "^${ACTION_BLOCK_END}" | t
 if [ -n "$ACTION_BLOCK_START" ] && [ -n "$ACTION_BLOCK_END" ]; then
     # If the "### Action" block exists, check if the badge is already present
     if sed -n "${ACTION_BLOCK_START},${ACTION_BLOCK_END}p" "$FILE" | grep -q "$BADGENAME"; then
-        echo "Badge already exists in the Action block. Skipping insertion."
+        sed -i "$ACTION_BLOCK_START,$ACTION_BLOCK_END{/$BADGENAME/d}" $FILE
+        insert_badge "$((ACTION_BLOCK_START + 1))"
+        echo "Badge already exists in the Action block, but insert new badge."
     else
         # Insert the badge after the start of the "### Action" block if it's not already there
         insert_badge "$((ACTION_BLOCK_START + 1))"
@@ -60,7 +66,7 @@ else
         fi
     else
         # Append the "### Action" block to the end of the file if neither headers are found
-        echo -e "\n### Action\n$BADGE #$GITHUB_RUN_NUMBER\n\nEnd!" >> "$FILE"
+        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER\n\nEnd!" >> "$FILE"
         echo "Action block and badge appended to the end of the file."
     fi
 fi
