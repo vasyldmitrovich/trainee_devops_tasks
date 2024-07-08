@@ -7,15 +7,19 @@ FILE="README.md"
 BADGENAME="Check README"
 BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)"
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
-#TOP_LANGUAGE="https://img.shields.io/github/languages/top/vasyldmitrovich/trainee_devops_tasks"
 
-echo "token is: $GITHUB_TOKEN"
-TEMP_STRING=$(curl -L \
+LANGUAGES_STRING=$(curl -L \
                 -H "Accept: application/vnd.github+json" \
                 -H "Authorization: Bearer $GITHUB_TOKEN" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/languages)
-echo "list languages is: $TEMP_STRING"
+
+# Parse the JSON and find the language with the maximum usage
+PRIMARY_LANGUAGE=$(echo $LANGUAGES_STRING | jq -r 'to_entries | max_by(.value) | .key')
+echo $PRIMARY_LANGUAGE
+# Create a badge URL using Shields.io
+LANGUAGE_BADGE="![Primary Language](https://img.shields.io/badge/language-$PRIMARY_LANGUAGE-blue)"
+
 
 echo "Running the script whether the file exists or not"
 
@@ -30,12 +34,12 @@ fi
 
 # Function to insert badge at specific line
 insert_badge() {
-    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE" "$FILE"
+    sed -i "$1i $BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE" "$FILE"
 }
 
 # Function to insert action block at specific line
 insert_action_block() {
-    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE\n\nEnd!" "$FILE"
+    sed -i "$1i ### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE\n\nEnd!" "$FILE"
 }
 
 # Check if there is an existing "### Action" block
@@ -71,7 +75,7 @@ else
         fi
     else
         # Append the "### Action" block to the end of the file if neither headers are found
-        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER $TOP_LANGUAGE\n\nEnd!" >> "$FILE"
+        echo -e "\n### Action\n$BADGE #Num:$GITHUB_RUN_NUMBER Language: $LANGUAGE_BADGE\n\nEnd!" >> "$FILE"
         echo "Action block and badge appended to the end of the file."
     fi
 fi
