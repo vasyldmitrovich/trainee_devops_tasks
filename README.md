@@ -30,7 +30,7 @@ To navigate to a specific task, click on the task name in the tables above. Each
 
 ### Version
 
-v.1.0.1
+v1.0.1
 ---
 
 
