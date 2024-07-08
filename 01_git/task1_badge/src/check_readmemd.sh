@@ -9,10 +9,10 @@ BADGE="![$BADGENAME](https://github.com/vasyldmitrovich/trainee_devops_tasks/act
 TIMESTAMP=$(date '+%A %d/%m/%Y %H:%M:%S %Z')
 #TOP_LANGUAGE="https://img.shields.io/github/languages/top/vasyldmitrovich/trainee_devops_tasks"
 
-echo "token is: $GITHUB_TOKEN"
+echo "token is: $1"
 TEMP_STRING=$(curl -L \
                 -H "Accept: application/vnd.github+json" \
-                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -H "Authorization: Bearer $1" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 https://api.github.com/repos/vasyldmitrovich/trainee_devops_tasks/languages)
 echo "list languages is: $TEMP_STRING"
