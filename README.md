@@ -12,17 +12,17 @@ End!
 
 ### 01_Git
 
-| Task             | Status        | Description                                                                                 | Link to Task                       |
-|------------------|---------------|---------------------------------------------------------------------------------------------|------------------------------------|
-| Task 1: Badge    | In Progress   | Implementing badges for CI/CD pipeline.                                                     | [task1_badge](01_git/task1_badge/) |
-| Task 2: Temp     | Not Started   | Temporary task setup for Git commands practice.                                             | [task2_temp](01_git/#)             |
+| Task          | Status        | Description                             | Link to Task                       |
+|---------------|---------------|-----------------------------------------|------------------------------------|
+| Task 1: Badge | Completed   | Implementing badges for CI/CD pipeline. | [task1_badge](01_git/task1_badge/) |
+| Task 2: Jinja | In Progress   | Work with Jinja template.               | [task2_jinja](01_git/task2_jinja/) |
 
 ### 02_AWS
 
-| Task             | Status        | Description                                                                                 | Link to Task              |
-|------------------|---------------|---------------------------------------------------------------------------------------------|---------------------------|
-| Task 1: Example  | Completed     | Setting up AWS infrastructure using Terraform.                                              | [task1_example](02_aws/#) |
-| Task 2: Sample   | In Progress   | Creating an S3 bucket and configuring access permissions.                                   | [task2_sample](02_aws/#)  |
+| Task              | Status        | Description                                         | Link to Task                            |
+|-------------------|---------------|-----------------------------------------------------|-----------------------------------------|
+| Task 1: S3 bucket | In Progress     | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket) |
+| Task 2: Sample    | Not Started   | ...                                                 | [task2_sample](02_aws/#)                |
 
 ## Navigation
 
