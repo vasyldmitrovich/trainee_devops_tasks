@@ -20,7 +20,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        run: ./01_git/task1_badge/src/check_readmemd.sh
+        run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh
       - name: Commit changes made by script
         if: github.ref == 'refs/heads/main'
         env:
