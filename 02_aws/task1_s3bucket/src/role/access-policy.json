@@ -3,7 +3,11 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "s3:*",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:List*"
+      ],
       "Resource": [
         "arn:aws:s3:::my-versioned-bucket-vbazh1989-v3",
         "arn:aws:s3:::my-versioned-bucket-vbazh1989-v3/*"

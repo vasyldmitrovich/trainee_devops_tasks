@@ -5,6 +5,10 @@ ROLE_NAME="MyS3AccessRole"
 POLICY_NAME="S3AccessPolicy"
 PROFILE_NAME="task1s3"
 
+# Create role and add policy to role
+aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://./role/trust-policy.json
+aws iam put-role-policy --role-name $ROLE_NAME --policy-name $POLICY_NAME --policy-document file://./role/access-policy.json
+
 # Create bucket
 aws s3api create-bucket --bucket $BUCKET_NAME --region us-east-1
 
@@ -24,10 +28,6 @@ aws s3api put-bucket-policy --bucket $BUCKET_NAME --policy file://./s3/bucket-po
 aws s3api put-object --bucket $BUCKET_NAME --key my_file1.txt --body "$(pwd)/files/file1.txt"
 aws s3api put-object --bucket $BUCKET_NAME --key my_file2.txt --body "$(pwd)/files/file2.txt"
 aws s3api put-object --bucket $BUCKET_NAME --key my_file3.txt --body "$(pwd)/files/file3.txt"
-
-# Create role and add policy to role
-aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://./role/trust-policy.json
-aws iam put-role-policy --role-name $ROLE_NAME --policy-name $POLICY_NAME --policy-document file://./role/access-policy.json
 
 # Config AWS CLI for assume role, add profile task1s3
 
