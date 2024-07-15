@@ -4,20 +4,25 @@ on:
   push:
     branches:
       - main
+      - '**'
   pull_request:
     branches:
       - main
+      - '**'
 
 jobs:
   check-readme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Run README check script
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh
+        run: ./01_git/task1_badge/src/check_readmemd.sh
       - name: Commit changes made by script
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
@@ -28,14 +33,22 @@ jobs:
           git commit -m 'Update status badge in README' 
           git push
           }
-      - name: Install python and Jinja2
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3 python3-pip
-          pip3 install jinja2
+
+      - name: Install python
+        if: github.ref != 'refs/heads/main'
+        uses: actions/setup-python@v2
+          with:
+            python-version: '3.x'
+
+      - name: Install Jinja2
+        if: github.ref != 'refs/heads/main'
+        run: pip3 install jinja2
+
       - name: Render Jinja2 template
-        run: python3 ./01_git/task2_jinja/src/render_template.py
+        if: github.ref != 'refs/heads/main'
+        run:./01_git/task2_jinja/src/render_template.py
       - name: Commit changes made by Jinja
+        if: github.ref != 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
@@ -46,5 +59,6 @@ jobs:
           git commit -m 'Update Jinja template in README' 
           git push
           }
+
       - name: Finish
         run: echo "Workflow finished!"
