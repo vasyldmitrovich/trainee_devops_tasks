@@ -1,1 +1,1 @@
-print("--- Strat ---")
+print("--- Start working with condition statement ---")
