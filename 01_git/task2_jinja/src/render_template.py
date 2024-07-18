@@ -4,7 +4,7 @@ import os
 import logging
 from jinja2 import Template
 
-# Config loggere
+# Config logger
 logging.basicConfig(filename='render_template.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 
