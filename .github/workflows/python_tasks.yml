@@ -20,7 +20,7 @@ jobs:
           python-version: '3.10'
 
       - name: Rup python script
-        run: python ./03python/src/my_first_app.py
+        run: python 03python/src/my_first_app.py
       - name: Commit changes after running python script
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
