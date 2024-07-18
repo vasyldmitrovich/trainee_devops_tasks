@@ -32,6 +32,12 @@ End!
 | Task 2: Data types    | Completed   | Working with data type in Python | [task2_data_type](03_python/src/DataTypes.py)        |
 | Task 3: Condition     | In Progress   | Working with condition in Python | [task2_condition](03_python/src/CondStatement.py)    |
 
+### 04_Docker
+
+| Task           | Status        | Description                               | Link to Task                                       |
+|----------------|---------------|-------------------------------------------|----------------------------------------------------|
+| Task 1: Volume | Completed     | Write Dockerfile, run app and add volume. | [task1_save_volume](04_docker/src/task1_volume) |
+
 
 ### Navigation
 

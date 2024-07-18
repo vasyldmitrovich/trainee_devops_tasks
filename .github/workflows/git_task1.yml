@@ -1,0 +1,62 @@
+name: Check README file
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run README check script
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: chmod +x ./01_git/task1_badge/src/check_readmemd.sh && ./01_git/task1_badge/src/check_readmemd.sh
+      - name: Commit changes made by script
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git diff --exit-code --quiet README.md || {
+          git add README.md 
+          git commit -m 'Update status badge in README' 
+          git push
+          }
+
+      - name: Install python
+        if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/python_tasks'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Jinja2
+        if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/python_tasks'
+        run: pip3 install jinja2
+
+      - name: Render Jinja2 template
+        if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/python_tasks'
+        run: ./01_git/task2_jinja/src/render_template.py
+      - name: Commit changes made by Jinja
+        if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/python_tasks'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git diff --exit-code --quiet README.md || {
+          git add README.md 
+          git commit -m 'Update Jinja template in README' 
+          git push
+          }
+
+      - name: Finish
+        run: echo "Workflow finished!"
