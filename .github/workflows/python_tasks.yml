@@ -20,8 +20,11 @@ jobs:
       - name: Rup second python script
         run: python ./03_python/src/Intro.py
 
-      - name: Rup third python script
+      - name: Rup python script about DataTypes
         run: python ./03_python/src/DataTypes.py
+
+      - name: Rup python script about Condition
+        run: python ./03_python/src/CondStatement.py
 
       - name: Finish
         run: echo "Workflow finished!"
