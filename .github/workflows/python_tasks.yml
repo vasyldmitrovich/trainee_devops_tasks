@@ -14,8 +14,11 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Rup python script
+      - name: Rup first python script
         run: python ./03_python/src/my_first_app.py
+
+      - name: Rup second python script
+        run: python ./03_python/src/Intro.py
 
       - name: Finish
         run: echo "Workflow finished!"
