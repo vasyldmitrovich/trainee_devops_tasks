@@ -1,0 +1,37 @@
+name: Run python files
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Rup python script
+        run: python ./03python/src/my_first_app.py
+      - name: Commit changes after running python script
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git diff --exit-code --quiet README.md || {
+          git add README.md 
+          git commit -m 'Update Jinja template in README' 
+          git push
+          }
+
+      - name: Finish
+        run: echo "Workflow finished!"
