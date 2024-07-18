@@ -20,5 +20,8 @@ jobs:
       - name: Rup second python script
         run: python ./03_python/src/Intro.py
 
+      - name: Rup third python script
+        run: python ./03_python/src/DataTypes.py
+
       - name: Finish
         run: echo "Workflow finished!"
