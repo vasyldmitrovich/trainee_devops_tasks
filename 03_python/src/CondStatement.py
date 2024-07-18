@@ -17,44 +17,46 @@ print("'a' in y", 'a' in y)
 
 score = 12
 if score > 8:
-    print("You have passed the exam")
-print("Exam was finished.")
+    print("score > 8 You have passed the exam")
+print("score not > 8 Exam was finished.")
 
 # temperature = float(input('What is the temperature? '))
 temperature = 37
 if temperature > 30:
-    print('Wear shorts.')
+    print('temperature > 30 Wear shorts.')
 else:
-    print('Wear long pants.')
+    print('else temperature < 30 Wear long pants.')
 print('Get some exercise outside.\n')
 
 age = 31
 if age < 12:
-    print('kid')
+    print('if age < 12 kid')
 elif age < 18:
-    print('teenager')
+    print('elif age < 18 teenager')
 elif age < 50:
-    print('adult')
+    print('elif age < 50 adult')
 else:
-    print('you are not old')
+    print('else you are not old')
 
 score = 58
 if score >= 90:
-    letter = 'A'
+    letter = 'if score >= 90 A'
 elif score >= 80:
-    letter = 'B'
+    letter = 'elif score >= 80 B'
 elif score >= 70:
-    letter = 'C'
+    letter = 'elif score >= 70 C'
 elif score >= 60:
-    letter = 'D'
+    letter = 'elif score >= 60 D'
 else:
-    letter = 'F'
-print("leter is: ", letter)
+    letter = 'else F'
+print("letter is: ", letter)
 
 weather = "raining"
-print("Open Your umbrella" if weather == "raining" else "Wear your cap")
+print(f"Ternary operator, weather={weather}, and ternary operator: ", "'Open Your umbrella' if weather == 'raining' else 'Wear your cap'")
+print("Open Your umbrella" if weather == "raining" else "Wear your cap\n-----")
 
 status = 555
+print(f"match case checking variable status = {status}")
 match status:
     case 400:
         print("Bad request")
@@ -68,6 +70,7 @@ match status:
         print("Other error")
 
 status = 403
+print(f"Set variable status={status}", " and use case 401 | 403 as error")
 match status:
     case 400:
         print("Bad request")
@@ -78,10 +81,12 @@ match status:
     case _:
         print("Other error")
 
-#item = ['evening', 'read a book']
-item = ['morning', 'exercise']
+item = ['evening', 'read a book']
+#item = ['morning', 'exercise']
 # item = ['night', 'sleep']
 # item = ['evening', 'have dinner']
+print("Using match case with list, check first element and set second element to temp var\n", "item = ['evening', 'read a book']",
+      "case ['evening', action]")
 match item:
     case ['evening', action]:
         print(f'You almost finished the day! Now {action}!')
@@ -90,5 +95,6 @@ match item:
     case _:
         print("The time is invalid.")
 
+print("---\n")
 
 
