@@ -56,7 +56,9 @@ print("Captured error message:", error_message)
 
 print('---', 'new block with data from user', '---', sep=" ")
 
-number = int(input("Input integer number: "))
+#number = int(input("Input integer number: "))
+number = int(6)
 print("Int num is:", number, type(number))
-num = input("by default input number is string: ")
+#num = input("by default input number is string: ")
+num = 'sss'
 print("num is: ", num, type(num))
