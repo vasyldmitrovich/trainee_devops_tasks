@@ -21,10 +21,19 @@ End!
 
 | Task              | Status        | Description                                         | Link to Task                            |
 |-------------------|---------------|-----------------------------------------------------|-----------------------------------------|
-| Task 1: S3 bucket | In Progress     | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket) |
+| Task 1: S3 bucket | Completed     | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket) |
 | Task 2: ...       | Not Started   | ...                                                 | ...                                     |
 
-## Navigation
+### 03_Python
+
+| Task                  | Status        | Description                      | Link to Task                                         |
+|-----------------------|---------------|----------------------------------|------------------------------------------------------|
+| Task 1: first frogram | Completed     | Write first program.             | [task1_first_program](03_python/src/my_first_app.py) |
+| Task 2: Data types    | Completed   | Working with data type in Python | [task2_data_type](03_python/src/DataTypes.py)        |
+| Task 3: Condition     | In Progress   | Working with condition in Python | [task2_condition](03_python/src/CondStatement.py)    |
+
+
+### Navigation
 
 To navigate to a specific task, click on the task name in the tables above. Each task folder contains detailed instructions and source code in the `src` subfolder.
 
