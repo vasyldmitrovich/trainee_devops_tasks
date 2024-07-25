@@ -1,5 +1,5 @@
 # Use the official Python image
-FROM python:3.10
+FROM python:3.9
 LABEL authors="vbazh"
 
 # Install Poetry
@@ -9,7 +9,7 @@ RUN pip install poetry
 WORKDIR /app
 
 # Copy project files to the working directory
-COPY . .
+COPY AppLogV1.py pyproject.toml ./
 
 # Install dependencies using Poetry
 RUN poetry install

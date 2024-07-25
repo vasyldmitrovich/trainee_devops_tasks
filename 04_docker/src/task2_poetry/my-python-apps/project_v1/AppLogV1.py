@@ -1,6 +1,6 @@
 import logging
 import sys
-import numpy as np
+import requests
 
 # Set the log file name as a command-line argument or use 'logs.txt' as default
 log_file = sys.argv[1] if len(sys.argv) > 1 else 'logs.txt'
@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 
 # Log the numpy version
-logging.info(f'Using numpy version: {np.__version__}')
+logging.info(f'Using requests version: {requests.__version__}')
 
 # Function to calculate the square of a number
 def square_number(num):

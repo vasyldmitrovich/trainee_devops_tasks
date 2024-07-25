@@ -59,13 +59,17 @@ docker run --name app_v1 -v $(pwd)/logs_v1:/log_python_app_v1 my-python-app-v1
 For project_v2:
 
 ```bash
-docker run --name app_v2 -v $(pwd)/logs_v2:/log_python_app_v2 my-python-app-v2 -v $(pwd)/logs_v1:/log_python_app_v1 and -v $(pwd)/logs_v2:/log_python_app_v2: Mount the local directory to the container directory, allowing logs to be stored on your local machine.
+docker run --name app_v2 -v $(pwd)/logs_v2:/log_python_app_v2 my-python-app-v2 
 ```
+
+-v $(pwd)/logs_v1:/log_python_app_v1 and -v $(pwd)/logs_v2:/log_python_app_v2: 
+
+Mount the local directory to the container directory, allowing logs to be stored on your local machine.
 
 Logs
 
 Logs are stored in the respective logs_v1 and logs_v2 directories for each project. 
-The logs include information about the numpy version used, the results of calculations, and any errors that occur.
+The logs include information about the requests version used, the results of calculations, and any errors that occur.
 
 Log Contents
 
