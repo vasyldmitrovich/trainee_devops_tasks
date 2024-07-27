@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "task3-project"
+version = "0.1.0"
+description = ""
+authors = ["Vasyl Bazhan <vasyldmitrovich@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "*"
+
+#[tool.poetry.group.dev.dependencies]
+# Specify packages for development only, no version here
+#requests = { version = "2.25.1" }
+
+[tool.poetry.group.test.dependencies]
+# Specify packages for testing only, with version
+requests = { version = "2.32.3" }
+pytest = "6.2.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
