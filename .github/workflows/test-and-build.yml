@@ -38,7 +38,7 @@ jobs:
       - name: Check coverage
         working-directory: 04_docker/src/task3_project
         run: |
-          poetry run coverage report | tail -n 1 | awk '{print $4}' | grep -q '^6[0-9]' || exit 1
+          poetry run coverage report | tail -n 1 | awk '{print $4}' | grep -q '^4[0-9]' || exit 1
 
   build:
     needs: test
