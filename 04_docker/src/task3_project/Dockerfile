@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12
 LABEL authors="vbazh"
 
 RUN curl -sSL https://install.python-poetry.org | python3 - \
