@@ -9,13 +9,13 @@ readme = "README.md"
 python = "^3.12"
 requests = "*"
 
-#[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.dev.dependencies]
 # Specify packages for development only, no version here
-#requests = { version = "2.25.1" }
+requests = { version = "2.25.1" }
 
 [tool.poetry.group.test.dependencies]
 # Specify packages for testing only, with version
-requests = { version = "2.32.3" }
+#requests = { version = "2.32.3" }
 pytest = "6.2.4"
 
 [build-system]
