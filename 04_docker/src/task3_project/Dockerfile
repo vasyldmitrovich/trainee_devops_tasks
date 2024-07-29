@@ -6,8 +6,12 @@ RUN curl -sSL https://install.python-poetry.org | python3 - \
 
 WORKDIR /app
 
-COPY ./* .
+COPY pyproject.toml poetry.lock ./
+
+ENV PATH="$PATH:/root/.local/bin"
 
 RUN poetry install --with test
+
+COPY . .
 
 CMD ["poetry", "run", "pytest"]
