@@ -21,15 +21,22 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.local/bin:$PATH"
 
+      - name: Change directory to project
+        working-directory: 04_docker/src/task3_project
+        run: echo "Changed directory to project"
+
       - name: Install dependencies
+        working-directory: 04_docker/src/task3_project
         run: poetry install --with test
 
       - name: Run tests with coverage
+        working-directory: 04_docker/src/task3_project
         run: |
           poetry run coverage run -m pytest
           poetry run coverage report
 
       - name: Check coverage
+        working-directory: 04_docker/src/task3_project
         run: |
           poetry run coverage report | tail -n 1 | awk '{print $4}' | grep -q '^6[0-9]' || exit 1
 
@@ -51,9 +58,15 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.local/bin:$PATH"
 
+      - name: Change directory to project
+        working-directory: 04_docker/src/task3_project
+        run: echo "Changed directory to project"
+
       - name: Install production dependencies
+        working-directory: 04_docker/src/task3_project
         run: poetry install --no-dev
 
       - name: Build the Docker image
+        working-directory: 04_docker/src/task3_project
         run: |
           docker build -t task3-project .
