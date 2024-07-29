@@ -17,6 +17,7 @@ requests = { version = "2.25.1" }
 # Specify packages for testing only, with version
 #requests = { version = "2.32.3" }
 pytest = "6.2.4"
+coverage = "5.5"
 
 [build-system]
 requires = ["poetry-core"]
