@@ -34,6 +34,7 @@ jobs:
         run: |
           timestamp=$(date +'%Y%m%d%H%M%S')
           coverage_report="coverage_${timestamp}.txt"
+          echo $coverage_report
           poetry run coverage run -m pytest
           poetry run coverage report -m > $coverage_report
 
@@ -51,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: 04_docker/src/task3_project/coverage.txt
+          path: 04_docker/src/task3_project/coverage_*.txt
 
 
   build:
@@ -83,4 +84,4 @@ jobs:
       - name: Build the Docker image
         working-directory: 04_docker/src/task3_project
         run: |
-          docker build -t task3-project .
+          docker build -t . .
