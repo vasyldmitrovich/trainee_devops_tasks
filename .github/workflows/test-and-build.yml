@@ -80,8 +80,11 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
 
-      - name: Echo artifacts what we have
-        run: ls -al
+      - name: Artifact is a file in folder coverage-report
+        run: ls coverage-report
+
+      - name: Echo content of file (artifact) what we have
+        run: cat coverage-report/coverage_*.txt
 
       - name: Install production dependencies
         working-directory: 04_docker/src/task3_project
