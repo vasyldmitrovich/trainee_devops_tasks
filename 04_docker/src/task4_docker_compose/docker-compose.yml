@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./container1
+    volumes:
+      - logs_volume:/log_python_app
+    command: ["poetry", "run", "python", "AppLog.py", "/log_python_app/logs.txt"]
+
+  log-reader:
+    build:
+      context: ./container2
+    volumes:
+      - logs_volume:/log_python_app
+    command: ["tail", "-f", "/log_python_app/logs.txt"]
+
+volumes:
+  logs_volume:
