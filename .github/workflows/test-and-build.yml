@@ -2,6 +2,10 @@ name: Test and Build
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number to release (e.g. 1.0.0)'
+        required: true
 
 jobs:
   test:
@@ -77,21 +81,47 @@ jobs:
         working-directory: 04_docker/src/task3_project
         run: echo "Changed directory to project"
 
-      - name: Download artifact
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-        run: pwd
 
-      - name: Echo artifact
-        working-directory: 04_docker/src/task3_project
-        run: ls -al
+      - name: Artifact is a file in folder coverage-report
+        run: ls coverage-report
+
+      - name: Echo content of file (artifact) what we have
+        run: cat coverage-report/coverage_*.txt
+
+      - name: Copy artifact to docker folder
+        run: cp coverage-report/coverage_*.txt 04_docker/src/task3_project
 
       - name: Install production dependencies
         working-directory: 04_docker/src/task3_project
         run: poetry install --no-dev
 
+      - name: Set version
+        id: set_version
+        run: |
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "Version set to ${{ github.event.inputs.version }}"
+
       - name: Build the Docker image
         working-directory: 04_docker/src/task3_project
         run: |
           docker build -t my_python_app .
+
+      - name: Tag the Docker image with version and latest
+        working-directory: 04_docker/src/task3_project
+        run: |
+          docker tag my_python_app ${{ secrets.DOCKERHUB_USERNAME }}/my_python_app:${{ env.VERSION }}
+          docker tag my_python_app ${{ secrets.DOCKERHUB_USERNAME }}/my_python_app:latest
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image
+        working-directory: 04_docker/src/task3_project
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my_python_app:${{ env.VERSION }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my_python_app:latest
