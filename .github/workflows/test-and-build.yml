@@ -77,14 +77,10 @@ jobs:
         working-directory: 04_docker/src/task3_project
         run: echo "Changed directory to project"
 
-      - name: Download artifact
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-        run: pwd
 
-      - name: Echo artifact
-        working-directory: 04_docker/src/task3_project
+      - name: Echo artifacts what we have
         run: ls -al
 
       - name: Install production dependencies
