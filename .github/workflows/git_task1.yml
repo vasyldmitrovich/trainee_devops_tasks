@@ -37,8 +37,13 @@ jobs:
       - name: Install Jinja2
         run: pip3 install jinja2
 
+      - name: Diagnostic
+        run: |
+          pwd
+          ls -al
+
       - name: Render Jinja2 template
-        run: ./01_git/task2_jinja/src/render_template.py
+        run: chmod +x 01_git/task2_jinja/src/render_template.py && python3 01_git/task2_jinja/src/render_template.py
 
       - name: Commit changes made by Jinja
         if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/python_tasks'
