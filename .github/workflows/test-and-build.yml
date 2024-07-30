@@ -77,6 +77,15 @@ jobs:
         working-directory: 04_docker/src/task3_project
         run: echo "Changed directory to project"
 
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+
+      - name: Echo artifact
+        working-directory: 04_docker/src/task3_project
+        run: ls -al
+
       - name: Install production dependencies
         working-directory: 04_docker/src/task3_project
         run: poetry install --no-dev
