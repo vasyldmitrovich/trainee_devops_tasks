@@ -37,6 +37,11 @@ jobs:
       - name: Install Jinja2
         run: pip3 install jinja2
 
+      - name: Diagnostic
+        run: |
+          pwd
+          ls -al
+
       - name: Render Jinja2 template
         run: chmod +x ./01_git/task2_jinja/src/render_template.py && ./01_git/task2_jinja/src/render_template.py
 
