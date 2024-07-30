@@ -86,6 +86,9 @@ jobs:
       - name: Echo content of file (artifact) what we have
         run: cat coverage-report/coverage_*.txt
 
+      - name: Copy artifact to docker folder
+        run: cp coverage-report/coverage_*.txt 04_docker/src/task3_project
+
       - name: Install production dependencies
         working-directory: 04_docker/src/task3_project
         run: poetry install --no-dev
