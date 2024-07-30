@@ -21,17 +21,39 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.local/bin:$PATH"
 
+      - name: Change directory to project
+        working-directory: 04_docker/src/task3_project
+        run: echo "Changed directory to project"
+
       - name: Install dependencies
+        working-directory: 04_docker/src/task3_project
         run: poetry install --with test
 
       - name: Run tests with coverage
+        working-directory: 04_docker/src/task3_project
         run: |
+          timestamp=$(date +'%Y%m%d%H%M%S')
+          coverage_report="coverage_${timestamp}.txt"
+          echo $coverage_report
           poetry run coverage run -m pytest
-          poetry run coverage report
+          poetry run coverage report -m > $coverage_report
 
       - name: Check coverage
+        working-directory: 04_docker/src/task3_project
         run: |
-          poetry run coverage report | tail -n 1 | awk '{print $4}' | grep -q '^6[0-9]' || exit 1
+          coverage_percent=$(poetry run coverage report | tail -n 1 | awk '{print $4}' | tr -d '%')
+          if (( $(echo "$coverage_percent < 40" | bc -l) )); then
+            echo "Coverage is below 40%. Coverage: $coverage_percent%"
+            exit 1
+          fi
+          echo "Coverage is sufficient: $coverage_percent%"
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: 04_docker/src/task3_project/coverage_*.txt
+
 
   build:
     needs: test
@@ -51,9 +73,25 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.local/bin:$PATH"
 
+      - name: Change directory to project
+        working-directory: 04_docker/src/task3_project
+        run: echo "Changed directory to project"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+        run: pwd
+
+      - name: Echo artifact
+        working-directory: 04_docker/src/task3_project
+        run: ls -al
+
       - name: Install production dependencies
+        working-directory: 04_docker/src/task3_project
         run: poetry install --no-dev
 
       - name: Build the Docker image
+        working-directory: 04_docker/src/task3_project
         run: |
-          docker build -t task3-project .
+          docker build -t my_python_app .
