@@ -8,12 +8,14 @@ from db import (ProductModel,
                 create_product,
                 get_product_by_id,
                 update_product,
-                delete_product)
+                delete_product,
+                db,
+                _add_default_data)
+import awsgi
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
-
 
 # Define the resources
 class Products(Resource):
@@ -33,7 +35,6 @@ class Products(Resource):
         product = create_product(**data)
 
         return {"message": "Product added successfully.", "productId": product.id}, 201
-
 
 class Product(Resource):
     def get(self, product_id):
@@ -70,12 +71,18 @@ class Product(Resource):
 
         return {"message": "Product deleted."}, 200
 
-
 # Add the resources to the API
 api.add_resource(Products, "/api/products")
 api.add_resource(Product, "/api/products/<int:product_id>")
 
+# Initialize the database
+db.connect()
+db.create_tables([ProductModel], safe=True)
+_add_default_data()
+db.close()
 
+def handler(event, context):
+    return awsgi.response(app, event, context)
 
 if __name__ == "__main__":
     def ipv4_or_localhost_regex_type(arg_value):

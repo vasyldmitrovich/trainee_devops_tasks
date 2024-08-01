@@ -15,6 +15,17 @@ files = [
 dev = ["black", "coverage", "isort", "pre-commit", "pyenchant", "pylint"]
 
 [[package]]
+name = "aws-wsgi"
+version = "0.2.7"
+description = "WSGI adapter for AWS API Gateway/Lambda Proxy Integration"
+optional = false
+python-versions = "*"
+files = [
+    {file = "aws-wsgi-0.2.7.tar.gz", hash = "sha256:eb0b00970e80d96b52c0806ceae2ff98ab96c90f67651765755c5236f9e6e50d"},
+    {file = "aws_wsgi-0.2.7-py2.py3-none-any.whl", hash = "sha256:37e16b6a211f251d9f72ab85018c4127a59dc0fc81263c19f312a6a8333f9908"},
+]
+
+[[package]]
 name = "click"
 version = "8.1.3"
 description = "Composable command line interface toolkit"
@@ -353,4 +364,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "072b4b5e05fa9b769e646a82311ec330827aa2c56ac90b1b9952401566f0aae8"
+content-hash = "22bc7378f39cfcf7edc3b26d89eac58e8a32d7bb5b0531479956c8661260e8ab"
