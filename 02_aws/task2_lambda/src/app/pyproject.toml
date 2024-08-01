@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "task2-lambda"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["Vasyl Bazhan <vasyl.dmitrovich@gmail.com>"]
