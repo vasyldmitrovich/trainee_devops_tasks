@@ -5,7 +5,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Copy files from the current directory to the working directory in the container
-COPY AppLog.py /app/AppLog.py
+COPY AppLog.py .
 
 # Set environment variable for the log directory path
 ENV LOGS_DIR="/log_python_app"
