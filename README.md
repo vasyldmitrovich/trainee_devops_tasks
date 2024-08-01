@@ -19,10 +19,10 @@ End!
 
 ### 02_AWS
 
-| Task              | Status        | Description                                         | Link to Task                            |
-|-------------------|---------------|-----------------------------------------------------|-----------------------------------------|
-| Task 1: S3 bucket | Completed     | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket) |
-| Task 2: ...       | Not Started   | ...                                                 | ...                                     |
+| Task              | Status    | Description                                         | Link to Task                            |
+|-------------------|-----------|-----------------------------------------------------|-----------------------------------------|
+| Task 1: S3 bucket | Completed | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket) |
+| Task 2: Lambda    | Started   | Move python app to aws and run lambda function      | [task2_lambda](02_aws/task2_lambda)     |
 
 ### 03_Python
 
@@ -30,13 +30,16 @@ End!
 |-----------------------|---------------|----------------------------------|------------------------------------------------------|
 | Task 1: first frogram | Completed     | Write first program.             | [task1_first_program](03_python/src/my_first_app.py) |
 | Task 2: Data types    | Completed   | Working with data type in Python | [task2_data_type](03_python/src/DataTypes.py)        |
-| Task 3: Condition     | In Progress   | Working with condition in Python | [task2_condition](03_python/src/CondStatement.py)    |
+| Task 3: Condition     | Completed   | Working with condition in Python | [task2_condition](03_python/src/CondStatement.py)    |
 
 ### 04_Docker
 
-| Task           | Status        | Description                               | Link to Task                                       |
-|----------------|---------------|-------------------------------------------|----------------------------------------------------|
-| Task 1: Volume | Completed     | Write Dockerfile, run app and add volume. | [task1_save_volume](04_docker/src/task1_volume) |
+| Task            | Status        | Description                                                  | Link to Task                                            |
+|-----------------|---------------|--------------------------------------------------------------|---------------------------------------------------------|
+| Task 1: Volume  | Completed     | Write Dockerfile, run app and add volume.                    | [task1_save_volume](04_docker/src/task1_volume)         |
+| Task 2: Poetry  | Completed     | Run app using poetry in container.                           | [task1_save_volume](04_docker/src/task2_poetry)         |
+| Task 3: Tests   | Completed     | Run github action, create artifact, push image go dockerhub. | [task1_save_volume](04_docker/src/task3_project)        |
+| Task 4: Compose | Completed     | Run app and use volume in another container.                 | [task1_save_volume](04_docker/src/task4_docker_compose) |
 
 
 ### Navigation
