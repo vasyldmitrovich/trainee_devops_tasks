@@ -1,22 +1,36 @@
-provider "aws" {
-  region     = var.instance_region
-  access_key = var.AWS_ACCESS_KEY_ID
-  secret_key = var.AWS_SECRET_ACCESS_KEY
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  required_version = ">= 1.2.0"
 }
 
-resource "aws_lambda_function" "my_lambda" {
-  filename         = "./function.zip"
-  function_name    = "my_lambda_function"
+provider "aws" {
+  region     = var.instance_region
+  profile = "default"
+}
+
+resource "aws_lambda_function" "my_lambda_1" {
+#  filename         = "./function.zip"
+  filename         = "./lambda_function_app2.zip"
+#  function_name    = "my_lambda_function"
+  function_name    = "my_lambda_function_app2"
   role             = aws_iam_role.lambda_exec.arn
-  handler          = "app.handler"
-  source_code_hash = filebase64sha256("./function.zip")
-  runtime          = "python3.8"
+#  role             = var.lambda_arn_role
+#  handler          = "app.lambda_handler"
+  handler          = "lambda_function.lambda_handler"
+#  source_code_hash = filebase64sha256("./function.zip")
+  source_code_hash = filebase64sha256("./lambda_function_app2.zip")
+  runtime          = "python3.12"
 }
 
 resource "aws_iam_role" "lambda_exec" {
-  name = "lambda_exec_role"
+  name = "lambda_exec_role1"
 
-  assume_role_policy = jsonencode({
+  assume_role_policy = jsonencode({#resourde data data aws_iam_policy_document use
     Version = "2012-10-17",
     Statement = [{
       Action = "sts:AssumeRole",

@@ -1,16 +1,17 @@
 [tool.poetry]
-name = "task2-lambda"
-version = "0.1.0"
+name = "project2"
+version = "1.1.2"
 description = ""
 authors = ["Vasyl Bazhan <vasyl.dmitrovich@gmail.com>"]
-readme = "README.md"
+packages = [
+    { include = "proj" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-requests = "*"
+requests = "^2.28.1"
 
 [tool.poetry.group.dev.dependencies]
-requests = { version = "2.25.1" }
 pytest = "6.2.4"
 coverage = "5.5"
 
