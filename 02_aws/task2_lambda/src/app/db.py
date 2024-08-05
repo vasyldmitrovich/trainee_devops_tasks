@@ -1,8 +1,19 @@
 from peewee import *
 import argparse
+import shutil
+import os
 
-# Define the database and the model
-db = SqliteDatabase('products.db')
+# Define the database path
+db_filename = 'products.db'
+source_db_path = os.path.join(os.getenv('LAMBDA_TASK_ROOT', ''), db_filename)
+destination_db_path = os.path.join('/tmp', db_filename)
+
+# Copy the database to the /tmp directory if it doesn't already exist there
+if not os.path.exists(destination_db_path):
+    shutil.copyfile(source_db_path, destination_db_path)
+
+# Use the database from the /tmp directory
+db = SqliteDatabase(destination_db_path)
 
 
 class ProductModel(Model):

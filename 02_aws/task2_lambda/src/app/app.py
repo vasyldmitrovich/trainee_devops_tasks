@@ -81,17 +81,30 @@ db.create_tables([ProductModel], safe=True)
 _add_default_data()
 db.close()
 
-def handler(event, context):
-    return awsgi.response(app, event, context)
+# Define the Lambda handler
+def lambda_handler(event, context):
+    try:
+        if 'httpMethod' in event:
+            return awsgi.response(app, event, context)
+        else:
+            raise KeyError('httpMethod')
+    except KeyError as e:
+        return {
+            'statusCode': 400,
+            'body': f'Invalid event format: {e}'
+        }
 
 if __name__ == "__main__":
+    import argparse
+    import re
+
     def ipv4_or_localhost_regex_type(arg_value):
         ipv4_or_localhost_regex = re.compile(
-            r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$|^(localhost|127(\.[0-9]+){0,2}\.[0-9]+)$")
+            r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.)){3}(25[0-5]|2[0-4][0-9]?)$|^(localhost|127(\.[0-9]+){0,2}\.[0-9]+)$")
         if not ipv4_or_localhost_regex.match(arg_value):
             raise argparse.ArgumentTypeError("invalid ipv4 or localhost value")
         return arg_value
-    # Create the table
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', help='deletes all data', default="localhost", type=ipv4_or_localhost_regex_type)
     parser.add_argument('--port', help='add default data', default=5000, type=int)

@@ -9,4 +9,5 @@ cd package
 7z a -r ../../function.zip ./*
 cd ../
 #zip function.zip app.py db.py
-7z a -tzip ../function.zip app.py db.py
+7z a -tzip ../function.zip app.py db.py ./tests ./products.db
+rm -rf package
