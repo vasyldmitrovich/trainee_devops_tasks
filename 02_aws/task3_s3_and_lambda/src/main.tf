@@ -13,8 +13,19 @@ provider "aws" {
   profile = "default"
 }
 
+module "lambda" {
+  source = "./lambda/"
+  s3_sns_lambda_role_arn = module.role.s3_sns_lambda_role_arn
+  sns_topic_arn = module.sns.sns_topic_arn
+}
+
+module "role" {
+  source = "./role/"
+}
+
 module "s3" {
   source = "./s3/"
+  sns_topic_art = module.sns.sns_topic_arn
 }
 
 module "sns" {
@@ -23,8 +34,5 @@ module "sns" {
   bucket_arn = module.s3.s3_for_sns_and_lambda_arn
 }
 
-module "role" {
-  source = "./role/"
-}
 
 

@@ -1,1 +1,1 @@
-#
+variable "sns_topic_art" {}
