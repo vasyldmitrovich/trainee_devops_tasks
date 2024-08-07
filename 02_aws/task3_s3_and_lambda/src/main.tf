@@ -32,6 +32,7 @@ module "sns" {
   source = "./sns/"
   bucket_id = module.s3.s3_for_sns_and_lambda_id
   bucket_arn = module.s3.s3_for_sns_and_lambda_arn
+  lambda_arn = module.lambda.lambda_arn
 }
 
 
