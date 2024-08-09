@@ -22,3 +22,5 @@ resource "aws_iam_role_policy_attachment" "lambda_exec_policy" {
   role       = aws_iam_role.s3_sns_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+# Need add to this role permission get object from s3 and put object in s3
