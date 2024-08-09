@@ -1,10 +1,10 @@
 resource "aws_lambda_function" "lambda" {
-  filename         = "./lambda_function_app2.zip"
+  filename         = "${path.module}/lambda_function_app2.zip"
   function_name    = "lambda_function_app2"
   role             = var.s3_sns_lambda_role_arn
   handler          = "lambda_function.lambda_handler"
   runtime          = "python3.12"
-  source_code_hash = filebase64sha256("./lambda_function_app2.zip")
+  source_code_hash = filebase64sha256("${path.module}/lambda_function_app2.zip")
 
 }
 
