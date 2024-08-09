@@ -8,10 +8,10 @@ resource "aws_iam_role" "s3_sns_lambda" {
 # Define the IAM policy document using the data source
 data "aws_iam_policy_document" "s3_sns_lambda_role_policy" {
   statement {
-    actions   = ["sts:AssumeRole"]
-    effect    = "Allow"
+    actions = ["sts:AssumeRole"]
+    effect = "Allow"
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
   }
@@ -24,3 +24,4 @@ resource "aws_iam_role_policy_attachment" "lambda_exec_policy" {
 }
 
 # Need add to this role permission get object from s3 and put object in s3
+# Test2

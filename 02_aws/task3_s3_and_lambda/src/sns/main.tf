@@ -4,17 +4,17 @@ data "aws_iam_policy_document" "topic" {
     effect = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = ["s3.amazonaws.com"]
     }
 
-    actions   = ["SNS:Publish"]
+    actions = ["SNS:Publish"]
     resources = ["arn:aws:sns:*:*:s3-event-notification-topic"]
 
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = [var.bucket_arn]
+      values = [var.bucket_arn]
     }
   }
 }
@@ -27,7 +27,7 @@ resource "aws_sns_topic" "topic_sns_run_lambda" {
 
 # Add subscription to run lambda function
 resource "aws_sns_topic_subscription" "topic_lambda" {
-  endpoint = var.lambda_arn
-  protocol = "lambda"
+  endpoint  = var.lambda_arn
+  protocol  = "lambda"
   topic_arn = aws_sns_topic.topic_sns_run_lambda.arn
 }
