@@ -5,7 +5,7 @@ terraform {
       version = "~> 5.0"
     }
   }
-  required_version = ">= 1.9.0"
+  required_version = ">= 1.5.0, < 2.0.0"
 }
 
 provider "aws" {
@@ -20,14 +20,16 @@ module "lambda" {
 }
 
 module "role" {
-  source = "./role/"
+  source                    = "./role/"
+  s3_for_sns_and_lambda_arn = module.s3.s3_for_sns_and_lambda_arn
+  s3_for_sns_and_lambda_id  = module.s3.s3_for_sns_and_lambda_id
   #TODO: Add role name for creating any another role
   #FIXME: need fix this thing
 }
 
 module "s3" {
   source        = "./s3/"
-  sns_topic_art = module.sns.sns_topic_arn
+  sns_topic_arn = module.sns.sns_topic_arn
 }
 
 module "sns" {

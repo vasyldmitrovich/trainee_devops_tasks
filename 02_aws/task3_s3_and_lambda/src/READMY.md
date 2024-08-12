@@ -1,7 +1,12 @@
+This terraform scenario
+
 Create s3 bucket 
-upload files
-create lambda function use trigger
-lambda triggered to bucket when object uploaded to bucket
-function runs
-change something
-put data to s3 bucket
+upload files to this bucket
+and bucket make notification
+
+sns triggered to bucket when in bucket uploaded .log file
+
+sns call lambda function
+
+which get object from bucket
+rename name and put to s3 bucket.

@@ -1,6 +1,6 @@
 # Create s3 Bucket
 resource "aws_s3_bucket" "bucket_for_sns_and_lambda" {
-  bucket = "aws-s3-bucket-for-snd-and-lambda-vbazh"
+  bucket = "aws-s3-bucket-for-snd-and-lambda-vbazh1"
 }
 
 # Upload files to s3 Bucket
@@ -18,7 +18,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
   topic {
     events = ["s3:ObjectCreated:*"]
-    topic_arn     = var.sns_topic_art
+    topic_arn     = var.sns_topic_arn
     filter_suffix = ".log"
   }
 }
