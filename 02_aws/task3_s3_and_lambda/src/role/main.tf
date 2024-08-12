@@ -1,6 +1,6 @@
 # Create the IAM role with the assume role policy
 resource "aws_iam_role" "s3_sns_lambda" {
-  name = "s3_sns_lambda_role1"
+  name               = "s3_sns_lambda_role1"
   assume_role_policy = data.aws_iam_policy_document.s3_sns_lambda_role_policy.json
 }
 
@@ -61,14 +61,14 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
-    effect    = "Allow"
-    actions   = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
+    effect = "Allow"
+    actions = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
     resources = [
-      var.s3_for_sns_and_lambda_arn,                # Permission to list the bucket
+      var.s3_for_sns_and_lambda_arn, # Permission to list the bucket
       "${var.s3_for_sns_and_lambda_arn}/*"          # Permission to access objects in the bucket
     ]
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [aws_iam_role.s3_sns_lambda.arn]
     }
   }
