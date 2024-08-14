@@ -1,26 +1,44 @@
 #!/bin/bash
 
-# Name of archive
-ZIP_FILE="lambda_function_app.zip"
+# Function to create a Lambda deployment package
+create_lambda_package() {
+    local zip_file="$1"
+    local project_path="$2"
+    local lambda_function_file="$3"
 
-# Delete old zip archive
-if [ -f "$ZIP_FILE" ]; then
-    rm "$ZIP_FILE"
-fi
+    cd $project_path
 
-# Install dependency
-pip install --target ./package -r ./app/requirements.txt
+    # Delete old zip archive if it exists
+    if [ -f "$zip_file" ]; then
+        rm "$zip_file"
+    fi
 
-# Create zip-archive
-cd package
-zip -r9 ../"$ZIP_FILE" .
+    # Install dependencies into a temporary package directory
+    pip install --target "$project_path/package" -r "$project_path/requirements.txt"
 
-# Add lambda function to archive
-cd ../app/
-zip -g "../$ZIP_FILE" lambda_function.py
-cd ..
+    # Create zip archive of the package
+    cd "$project_path/package"
+    zip -r9 "../$zip_file" .
 
-# Delete temporary directory
-rm -rf package
+    # Add the Lambda function to the archive
+    cd "$project_path"
+    zip -g "$zip_file" "$lambda_function_file"
 
-echo "Lambda package created: $ZIP_FILE"
+    # Delete the temporary package directory
+    rm -rf "$project_path/package"
+
+    echo "Lambda package created: $zip_file"
+}
+
+# Variables for zip file name and project path
+ZIP_FILE1="lambda_function_app.zip"
+PROJECT_PATH1="$(pwd)/app"
+LAMBDA_FILE1="lambda_function.py"
+
+ZIP_FILE2="lambda_function_app_bridge.zip"
+PROJECT_PATH2="$(pwd)/app_bridge"
+LAMBDA_FILE2="lambda_function.py"
+
+# Call the function with the provided arguments
+create_lambda_package "$ZIP_FILE1" "$PROJECT_PATH1" "$LAMBDA_FILE1"
+create_lambda_package "$ZIP_FILE2" "$PROJECT_PATH2" "$LAMBDA_FILE2"
