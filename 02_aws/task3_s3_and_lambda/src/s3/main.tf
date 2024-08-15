@@ -21,4 +21,12 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     topic_arn     = var.sns_topic_arn
     filter_suffix = ".log"
   }
+
+  lambda_function {
+    lambda_function_arn = var.lambda_bridge_arn
+#     events = ["s3:ObjectRemoved:*"]
+#    filter_suffix       = ".log"
+   events = ["s3:ObjectCreated:*"]
+    filter_suffix       = ".txt"
+  }
 }

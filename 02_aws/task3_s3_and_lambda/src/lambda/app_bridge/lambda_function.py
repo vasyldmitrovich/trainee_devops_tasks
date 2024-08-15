@@ -13,12 +13,12 @@ def lambda_handler(event, context):
     # Log the incoming event for debugging purposes
     logger.info("Received event: %s", json.dumps(event, indent=2))
 
-    # Check if the event is from EventBridge
-    if 'source' in event and event['source'] == 'aws.s3':
-        logger.info("Triggered by EventBridge event")
+    # Check if the event is from S3
+    if 'Records' in event and event['Records'][0]['eventSource'] == 'aws:s3':
+        logger.info("Triggered by S3 event")
 
         # Specify the bucket name
-        bucket_name = "aws-s3-bucket-for-snd-and-lambda-vbazh1"
+        bucket_name = event['Records'][0]['s3']['bucket']['name']
 
         try:
             # List objects in the bucket and count them
@@ -30,4 +30,4 @@ def lambda_handler(event, context):
         except Exception as e:
             logger.error(f"Error counting objects in bucket {bucket_name}: {e}")
     else:
-        logger.warning("Event was not triggered by EventBridge.")
+        logger.warning("Event was not triggered by S3.")

@@ -7,8 +7,10 @@ import urllib.parse
 s3_client = boto3.client('s3')
 
 def lambda_handler(event, context):
+
+    print(f"Received event: {json.dumps(event, indent=2)}")
+
     for record in event['Records']:
-        print("Received event: " + json.dumps(event, indent=2))
 
         # Retrieve the SNS message
         sns_message = record['Sns']['Message']
