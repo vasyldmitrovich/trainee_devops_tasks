@@ -39,6 +39,11 @@ ZIP_FILE2="lambda_function_app_bridge.zip"
 PROJECT_PATH2="$(pwd)/app_bridge"
 LAMBDA_FILE2="lambda_function.py"
 
+ZIP_FILE3="lambda_function_app_logger.zip"
+PROJECT_PATH3="$(pwd)/app_versioning_alias"
+LAMBDA_FILE3="lambda_function.py"
+
 # Call the function with the provided arguments
 create_lambda_package "$ZIP_FILE1" "$PROJECT_PATH1" "$LAMBDA_FILE1"
 create_lambda_package "$ZIP_FILE2" "$PROJECT_PATH2" "$LAMBDA_FILE2"
+create_lambda_package "$ZIP_FILE3" "$PROJECT_PATH3" "$LAMBDA_FILE3"

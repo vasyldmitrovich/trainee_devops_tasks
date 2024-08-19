@@ -99,7 +99,6 @@ data "aws_iam_policy_document" "assume_role_policy" {
 resource "aws_iam_policy" "lambda_s3_access_to_s3" {
   name        = "lambda_s3_access_policy_to_s3"
   description = "Policy to allow Lambda function to access S3 bucket"
-
   policy = data.aws_iam_policy_document.lambda_s3_policy.json
 }
 
@@ -128,4 +127,37 @@ resource "aws_iam_role_policy_attachment" "lambda_s3_policy_attach" {
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution_role" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+
+# ----------   ----------
+
+# Use data for getting policy
+data "aws_iam_policy" "lambda_basic_execution_policy" {
+  arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+# Create role for versioning and alias (logging)Lambda
+resource "aws_iam_role" "lambda_basic_execution" {
+  name = "lambda_basic_execution_role"
+
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
+}
+
+# Use data for creating assume_role_policy
+data "aws_iam_policy_document" "lambda_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+# Set policy to role
+resource "aws_iam_role_policy_attachment" "lambda_basic_execution_attach" {
+  role       = aws_iam_role.lambda_basic_execution.name
+  policy_arn = data.aws_iam_policy.lambda_basic_execution_policy.arn
 }

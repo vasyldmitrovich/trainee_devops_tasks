@@ -5,7 +5,7 @@ terraform {
       version = "~> 5.0"
     }
   }
-  required_version = ">= 1.5.0, < 2.0.0"
+  required_version = ">= 1.5"
 }
 
 provider "aws" {
@@ -19,6 +19,7 @@ module "lambda" {
   sns_topic_arn          = module.sns.sns_topic_arn
   bucket_arn = module.s3.s3_for_sns_and_lambda_arn
   s3_lambda_role_arn     = module.role.s3_lambda_role_arn
+  lambda_basic_execution_arn = module.role.lambda_basic_execution_arn
 }
 
 module "role" {
