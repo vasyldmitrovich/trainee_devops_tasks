@@ -43,7 +43,12 @@ ZIP_FILE3="lambda_function_app_logger.zip"
 PROJECT_PATH3="$(pwd)/app_versioning_alias"
 LAMBDA_FILE3="lambda_function.py"
 
+ZIP_FILE4="lambda_function_app_versioning_workspaces.zip"
+PROJECT_PATH4="$(pwd)/app_versioning_workspaces"
+LAMBDA_FILE4="lambda_function.py"
+
 # Call the function with the provided arguments
 create_lambda_package "$ZIP_FILE1" "$PROJECT_PATH1" "$LAMBDA_FILE1"
 create_lambda_package "$ZIP_FILE2" "$PROJECT_PATH2" "$LAMBDA_FILE2"
 create_lambda_package "$ZIP_FILE3" "$PROJECT_PATH3" "$LAMBDA_FILE3"
+create_lambda_package "$ZIP_FILE4" "$PROJECT_PATH4" "$LAMBDA_FILE4"
