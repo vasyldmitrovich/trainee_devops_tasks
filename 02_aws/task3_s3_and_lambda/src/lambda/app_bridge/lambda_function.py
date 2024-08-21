@@ -13,6 +13,12 @@ def lambda_handler(event, context):
     # Log the incoming event for debugging purposes
     logger.info("Received event: %s", json.dumps(event, indent=2))
 
+    # Check if the event is from EventBridge (Scheduler)
+    if 'source' in event and event['source'] == 'aws.events':
+        logger.info("Triggered by EventBridge Scheduler")
+        # Add any additional logic for scheduled invocation here
+        return
+
     # Check if the event is from S3
     if 'Records' in event and event['Records'][0]['eventSource'] == 'aws:s3':
         logger.info("Triggered by S3 event")

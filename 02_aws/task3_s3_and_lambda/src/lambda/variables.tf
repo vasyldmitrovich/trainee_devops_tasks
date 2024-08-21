@@ -12,3 +12,7 @@ variable "log_level" {
   type    = string
   default = "INFO"
 }
+
+variable "INSTANCE_REGION" {}
+
+variable "eventbridge_scheduler_role_arn" {}

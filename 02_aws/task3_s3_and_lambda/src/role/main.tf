@@ -1,3 +1,6 @@
+
+# --- First role for using lambda and sns ---
+
 # Create the IAM role with the assume role policy
 resource "aws_iam_role" "s3_sns_lambda" {
   name               = "s3_sns_lambda_role1"
@@ -74,7 +77,7 @@ data "aws_iam_policy_document" "bucket_policy" {
   }
 }
 
-# ----------   ----------
+# --- Second role for using lambda and s3 ---
 
 # IAM role for Lambda bridge
 resource "aws_iam_role" "lambda_role" {
@@ -130,7 +133,7 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution_role" {
 }
 
 
-# ----------   ----------
+# --- This is symply role for simple lambda ---
 
 # Use data for getting policy
 data "aws_iam_policy" "lambda_basic_execution_policy" {
@@ -160,4 +163,50 @@ data "aws_iam_policy_document" "lambda_assume_role_policy" {
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution_attach" {
   role       = aws_iam_role.lambda_basic_execution.name
   policy_arn = data.aws_iam_policy.lambda_basic_execution_policy.arn
+}
+
+# --- Fourth role for using lambda and cloudwatch scheduler ---
+
+# 1. Create IAM policy document for EventBridge Scheduler assume role
+data "aws_iam_policy_document" "scheduler_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["scheduler.amazonaws.com"]  # EventBridge Scheduler principal
+    }
+  }
+}
+
+# 2. Create IAM role for EventBridge Scheduler
+resource "aws_iam_role" "eventbridge_scheduler_role" {
+  name               = "eventbridge_scheduler_lambda_role"
+  assume_role_policy = data.aws_iam_policy_document.scheduler_assume_role_policy.json
+}
+
+# 3. Create IAM policy document to allow Lambda invocation
+data "aws_iam_policy_document" "scheduler_lambda_invoke_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "lambda:InvokeFunction"
+    ]
+    resources = [
+      var.lambda_bridge_arn
+    ]
+  }
+}
+
+# 4. Attach the AWSLambdaBasicExecutionRole policy to the role
+resource "aws_iam_role_policy_attachment" "scheduler_lambda_basic_execution_role" {
+  role       = aws_iam_role.eventbridge_scheduler_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+# 5. Attach custom policy to allow invoking the Lambda function
+resource "aws_iam_role_policy" "scheduler_lambda_policy" {
+  name   = "scheduler_lambda_invoke_policy"
+  role   = aws_iam_role.eventbridge_scheduler_role.id
+  policy = data.aws_iam_policy_document.scheduler_lambda_invoke_policy.json
 }
