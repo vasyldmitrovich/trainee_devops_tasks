@@ -179,6 +179,8 @@ data "aws_iam_policy_document" "scheduler_assume_role_policy" {
   }
 }
 
+# --- Fifth role for event bridge ---
+
 # 2. Create IAM role for EventBridge Scheduler
 resource "aws_iam_role" "eventbridge_scheduler_role" {
   name               = "eventbridge_scheduler_lambda_role"

@@ -38,17 +38,18 @@ resource "aws_lambda_permission" "with_s3_lambda_bridge" {
 
 # Create an EventBridge Schedule that triggers every 15 minutes using cron expression
 resource "aws_scheduler_schedule" "every_15_minutes_schedule" {
-  name        = "every-15-minutes-schedule"
+  name  = "every-15-minutes-schedule"
   schedule_expression = "cron(0/15 * * * ? *)"  # This cron expression represents every 15 minutes
+  state = "DISABLED" # I disable scheduler after testing and seeing that all work correct
 
   # Define the target Lambda function
   target {
-    arn = aws_lambda_function.lambda_bridge.arn
+    arn      = aws_lambda_function.lambda_bridge.arn
     role_arn = var.eventbridge_scheduler_role_arn  # Role to allow EventBridge to invoke the Lambda function
 
     # Optional: Input to the Lambda function
     input = jsonencode({
-      "source" = "aws.events",
+      "source"      = "aws.events",
       "detail-type" = "Scheduled Event"
     })
   }
@@ -67,7 +68,6 @@ resource "aws_lambda_permission" "allow_eventbridge_lambda_bridge" {
   principal     = "scheduler.amazonaws.com"
   source_arn    = aws_scheduler_schedule.every_15_minutes_schedule.arn
 }
-
 
 
 # ----------  Get parameter from event or env variable  ----------
@@ -92,12 +92,12 @@ resource "aws_lambda_function" "lambda_logger" {
 
 resource "aws_lambda_function" "lambda_logger_workspaces" {
   function_name = "lambda_function_app_versioning_workspaces"#Add parametrization of resources not hardcode
-  role          = var.lambda_basic_execution_arn
-  filename      = "${path.module}/app_versioning_workspaces/lambda_function_app_versioning_workspaces.zip"
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.12"
+  role     = var.lambda_basic_execution_arn
+  filename = "${path.module}/app_versioning_workspaces/lambda_function_app_versioning_workspaces.zip"
+  handler  = "lambda_function.lambda_handler"
+  runtime  = "python3.12"
   source_code_hash = filebase64sha256("${path.module}/app_versioning_workspaces/lambda_function_app_versioning_workspaces.zip")
-  publish       = true
+  publish  = true
 
   # Log level depend from workspace
   environment {
@@ -120,7 +120,6 @@ resource "aws_lambda_alias" "prod_alias" {
   function_name    = aws_lambda_function.lambda_logger_workspaces.arn
   function_version = "1"  # Use a specific version number here
 }
-
 
 
 # Use s3 notification unless gateway
