@@ -27,11 +27,12 @@ End!
 
 ### 03_Python
 
-| Task                  | Status        | Description                      | Link to Task                                         |
-|-----------------------|---------------|----------------------------------|------------------------------------------------------|
-| Task 1: first frogram | Completed     | Write first program.             | [task1_first_program](03_python/src/my_first_app.py) |
-| Task 2: Data types    | Completed   | Working with data type in Python | [task2_data_type](03_python/src/DataTypes.py)        |
-| Task 3: Condition     | Completed   | Working with condition in Python | [task2_condition](03_python/src/CondStatement.py)    |
+| Task                    | Status        | Description                            | Link to Task                                           |
+|-------------------------|---------------|----------------------------------------|--------------------------------------------------------|
+| Task 1_1: first frogram | Completed     | Write first program.                   | [task1_first_program](03_python/src/task1_fundamental/my_first_app.py) |
+| Task 1_2: Data types    | Completed   | Working with data type in Python       | [task2_data_type](03_python/src/task1_fundamental/DataTypes.py) |
+| Task 1_3: Condition     | Completed   | Working with condition in Python       | [task2_condition](03_python/src/task1_fundamental/CondStatement.py) |
+| Task 2: Makefile        | Completed   | Working with makefile | [task2_condition](03_python/src/task2_makefile/)       |
 
 ### 04_Docker
 
