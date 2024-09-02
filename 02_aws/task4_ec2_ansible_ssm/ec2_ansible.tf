@@ -58,3 +58,24 @@ resource "aws_security_group" "web_server_sg" {
     Name = "WebServerSecurityGroup"
   }
 }
+
+# Run Ansible playbook after instance is ready
+resource "null_resource" "provision_ansible" {
+  depends_on = [aws_instance.web_server, local_file.private_key]
+
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      host        = aws_instance.web_server.public_ip
+      user        = "ubuntu" # Change this to "ec2-user" if you're using Amazon Linux AMI
+      private_key = tls_private_key.example.private_key_pem
+    }
+
+    inline = [
+      "sudo apt update -y",
+      "sudo apt install -y python3",
+      "sudo apt update -y",
+      "sudo apt install -y apache2"
+    ]
+  }
+}
