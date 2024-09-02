@@ -19,11 +19,12 @@ End!
 
 ### 02_AWS
 
-| Task                       | Status    | Description                                        | Link to Task                               |
-|----------------------------|-----------|----------------------------------------------------|--------------------------------------------|
-| Task 1: S3 bucket          | Completed | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket)    |
-| Task 2: Lambda             | Completed | Move python app to aws and run lambda function     | [task2_lambda](02_aws/task2_lambda)        |
-| Task 3: EventBridge Lambda | Completed | Working with bridge, versioning, alias, workspace  | [task3_s3_and_lambda](02_aws/task3_s3_and_lambda) |
+| Task                       | Status    | Description                                         | Link to Task                                        |
+|----------------------------|-----------|-----------------------------------------------------|-----------------------------------------------------|
+| Task 1: S3 bucket          | Completed | Setting up AWS infrastructure, work with s3 bucket. | [task1_s3bucket](02_aws/task1_s3bucket)             |
+| Task 2: Lambda             | Completed | Move python app to aws and run lambda function      | [task2_lambda](02_aws/task2_lambda)                 |
+| Task 3: EventBridge Lambda | Completed | Working with bridge, versioning, alias, workspace   | [task3_s3_and_lambda](02_aws/task3_s3_and_lambda)   |
+| Task 4: Ansible            | Started   | Configure ec2 using Ansible and ssm                 | [task3_s3_and_lambda](02_aws/task4_ec2_ansible_ssm) |
 
 ### 03_Python
 
