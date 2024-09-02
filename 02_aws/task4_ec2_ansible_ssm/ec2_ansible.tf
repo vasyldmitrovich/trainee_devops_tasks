@@ -14,8 +14,8 @@ resource "aws_key_pair" "deploy_by_ansible" {
 
 # Save the private key to a file
 resource "local_file" "private_key" {
-  filename = "${path.module}/my_key_for_ansible.pem"
-  content  = tls_private_key.example.private_key_pem
+  filename        = "${path.module}/my_key_for_ansible.pem"
+  content         = tls_private_key.example.private_key_pem
   file_permission = "0600" # Secure permissions for the private key
 }
 
@@ -23,7 +23,7 @@ resource "local_file" "private_key" {
 resource "aws_instance" "web_server" {
   ami           = var.instance_ami
   instance_type = var.instance_type
-  key_name = aws_key_pair.deploy_by_ansible.key_name
+  key_name      = aws_key_pair.deploy_by_ansible.key_name
   subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
   vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
   tags = {
@@ -63,19 +63,7 @@ resource "aws_security_group" "web_server_sg" {
 resource "null_resource" "provision_ansible" {
   depends_on = [aws_instance.web_server, local_file.private_key]
 
-  provisioner "remote-exec" {
-    connection {
-      type        = "ssh"
-      host        = aws_instance.web_server.public_ip
-      user        = "ubuntu" # Change this to "ec2-user" if you're using Amazon Linux AMI
-      private_key = tls_private_key.example.private_key_pem
-    }
-
-    inline = [
-      "sudo apt update -y",
-      "sudo apt install -y python3",
-      "sudo apt update -y",
-      "sudo apt install -y apache2"
-    ]
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${aws_instance.web_server.public_ip},' -u ubuntu --private-key ${local_file.private_key.filename} playbook.yml"
   }
 }
