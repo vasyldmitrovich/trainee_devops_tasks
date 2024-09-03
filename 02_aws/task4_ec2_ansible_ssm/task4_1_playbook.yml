@@ -1,0 +1,14 @@
+- name: Playbook for running tasks on web servers from inventory file from group
+  hosts: ec2webservers
+  become: true
+  tasks:
+    - name: Copy first file with permissions
+      ansible.builtin.copy:
+        src: ./app/calculator.py
+        dest: /home/ubuntu/calculator.py
+        mode: '0777'
+    - name: Copy second file with permissions
+      ansible.builtin.copy:
+        src: ./app/main.py
+        dest: /home/ubuntu/main.py
+        mode: '0777'

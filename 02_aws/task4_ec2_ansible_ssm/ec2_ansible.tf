@@ -64,6 +64,59 @@ resource "null_resource" "provision_ansible" {
   depends_on = [aws_instance.web_server, local_file.private_key]
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${aws_instance.web_server.public_ip},' -u ubuntu --private-key ${local_file.private_key.filename} playbook.yml"
+    command = <<EOT
+      # Maximum number of retries
+      max_retries=10
+      retry_count=0
+      ssh_ready=false
+
+      while [ $retry_count -lt $max_retries ]; do
+        # Check if SSH is available
+        nc -z -v -w5 ${aws_instance.web_server.public_ip} 22
+        if [ $? -eq 0 ]; then
+          echo "SSH is available, running Ansible Playbook"
+          ssh_ready=true
+          break
+        else
+          echo "SSH is not available, waiting for 30 seconds..."
+          sleep 30
+          retry_count=$((retry_count + 1))
+        fi
+      done
+
+      # If SSH is available, run the Ansible Playbook
+      if [ "$ssh_ready" = true ]; then
+        ansible-playbook -i '${aws_instance.web_server.public_ip},' -u ubuntu --private-key ${local_file.private_key.filename} playbook.yml
+      else
+        echo "SSH is not available after $max_retries attempts, exiting."
+        exit 1
+      fi
+    EOT
+  }
+}
+
+# --- More interesting playbook ---
+
+# Create instance
+resource "aws_instance" "web_server2" {
+  ami           = var.instance_ami
+  instance_type = var.instance_type
+  key_name      = aws_key_pair.deploy_by_ansible.key_name
+  subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
+  vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
+  tags = {
+    Name = "WebServer_Ansible2"
+  }
+}
+
+# Run Ansible playbook after instance is ready
+resource "null_resource" "provision_ansible2" {
+  depends_on = [aws_instance.web_server, aws_instance.web_server2, local_file.private_key, null_resource.provision_ansible]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      ./task4_1_build_inventory_file.sh ${aws_instance.web_server.public_ip} ${aws_instance.web_server2.public_ip} ${local_file.private_key.filename}
+      ansible-playbook -i task4_1_ec2_inventory.ini task4_1_playbook.yml
+    EOT
   }
 }
