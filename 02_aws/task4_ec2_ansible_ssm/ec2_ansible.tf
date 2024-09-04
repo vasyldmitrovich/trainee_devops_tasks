@@ -64,34 +64,7 @@ resource "null_resource" "provision_ansible" {
   depends_on = [aws_instance.web_server, local_file.private_key]
 
   provisioner "local-exec" {
-    command = <<EOT
-      # Maximum number of retries
-      max_retries=10
-      retry_count=0
-      ssh_ready=false
-
-      while [ $retry_count -lt $max_retries ]; do
-        # Check if SSH is available
-        nc -z -v -w5 ${aws_instance.web_server.public_ip} 22
-        if [ $? -eq 0 ]; then
-          echo "SSH is available, running Ansible Playbook"
-          ssh_ready=true
-          break
-        else
-          echo "SSH is not available, waiting for 30 seconds..."
-          sleep 30
-          retry_count=$((retry_count + 1))
-        fi
-      done
-
-      # If SSH is available, run the Ansible Playbook
-      if [ "$ssh_ready" = true ]; then
-        ansible-playbook -i '${aws_instance.web_server.public_ip},' -u ubuntu --private-key ${local_file.private_key.filename} playbook.yml
-      else
-        echo "SSH is not available after $max_retries attempts, exiting."
-        exit 1
-      fi
-    EOT
+    command = "./run_ansible_with_ssh_check.sh ${aws_instance.web_server.public_ip} ${local_file.private_key.filename}"
   }
 }
 
