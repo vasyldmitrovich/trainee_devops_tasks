@@ -21,11 +21,12 @@ resource "local_file" "private_key" {
 
 # Create instance
 resource "aws_instance" "web_server" {
-  ami           = var.instance_ami
-  instance_type = var.instance_type
-  key_name      = aws_key_pair.deploy_by_ansible.key_name
+  ami                  = var.instance_ami
+  instance_type        = var.instance_type
+  key_name             = aws_key_pair.deploy_by_ansible.key_name
   subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
   vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
+  iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.arn
   tags = {
     Name = "WebServer_Ansible"
   }
@@ -84,7 +85,9 @@ resource "aws_instance" "web_server2" {
 
 # Run Ansible playbook after instance is ready
 resource "null_resource" "provision_ansible2" {
-  depends_on = [aws_instance.web_server, aws_instance.web_server2, local_file.private_key, null_resource.provision_ansible]
+  depends_on = [
+    aws_instance.web_server, aws_instance.web_server2, local_file.private_key, null_resource.provision_ansible
+  ]
 
   provisioner "local-exec" {
     command = <<EOT
