@@ -1,0 +1,10 @@
+schemaVersion: '2.2'
+description: 'Run Python script on EC2 instance'
+mainSteps:
+  - action: 'aws:runCommand'
+    name: 'runPythonScript'
+    inputs:
+      DocumentName: 'AWS-RunShellScript'
+      Parameters:
+        commands:
+          - 'python3 /home/ubuntu/script.py'
