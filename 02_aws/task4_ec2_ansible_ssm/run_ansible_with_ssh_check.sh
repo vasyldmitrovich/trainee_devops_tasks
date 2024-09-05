@@ -18,14 +18,14 @@ while [ $retry_count -lt $max_retries ]; do
     break
   else
     echo "SSH is not available, waiting for 30 seconds..."
-    sleep 30
+    sleep 10
     retry_count=$((retry_count + 1))
   fi
 done
 
 # If SSH is available, run the Ansible Playbook
 if [ "$ssh_ready" = true ]; then
-  ansible-playbook -i "${WEB_SERVER_IP}," -u ubuntu --private-key $PRIVATE_KEY_PATH playbook.yml
+  ansible-playbook -i "${WEB_SERVER_IP}," -u ubuntu -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' --private-key $PRIVATE_KEY_PATH playbook.yml
 else
   echo "SSH is not available after $max_retries attempts, exiting."
   exit 1

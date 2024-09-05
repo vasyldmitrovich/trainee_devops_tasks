@@ -26,7 +26,7 @@ resource "aws_instance" "web_server" {
   key_name             = aws_key_pair.deploy_by_ansible.key_name
   subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
   vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
-  iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.arn
+  iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
   tags = {
     Name = "WebServer_Ansible"
   }
@@ -92,7 +92,7 @@ resource "null_resource" "provision_ansible2" {
   provisioner "local-exec" {
     command = <<EOT
       ./task4_1_build_inventory_file.sh ${aws_instance.web_server.public_ip} ${aws_instance.web_server2.public_ip} ${local_file.private_key.filename}
-      ansible-playbook -i task4_1_ec2_inventory.ini task4_1_playbook.yml
+      ansible-playbook -i task4_1_ec2_inventory.ini -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' task4_1_playbook.yml
     EOT
   }
 }
