@@ -30,7 +30,7 @@
 
     - name: Install requests library
       ansible.builtin.pip:
-        name: requests
+        name: "requests>=2.25.1"
         state: present
         executable: pip3
 
