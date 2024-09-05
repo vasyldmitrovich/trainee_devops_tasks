@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 module "net" {
-  source          = "./net/"
+  source            = "./net/"
   availability_zone = var.availability_zone
 
 }
