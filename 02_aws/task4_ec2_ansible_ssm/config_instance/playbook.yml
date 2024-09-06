@@ -20,3 +20,6 @@
       file:
         path: "/home/ubuntu/my_file3.txt"
         state: touch
+
+    - name: Include tasks to write IP address to index.html
+      include_tasks: write_ip.yml

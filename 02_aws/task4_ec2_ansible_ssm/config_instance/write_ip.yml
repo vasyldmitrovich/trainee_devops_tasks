@@ -1,0 +1,10 @@
+# write_ip.yml
+
+- name: Get the IP address of the machine
+  command: hostname -I
+  register: ip_address
+
+- name: Write the IP address to index.html
+  copy:
+    content: "Hello world, my local IP is: {{ ip_address.stdout }}<br><br><h1>Have a nice day ;-)</h1>"
+    dest: /var/www/html/index.html

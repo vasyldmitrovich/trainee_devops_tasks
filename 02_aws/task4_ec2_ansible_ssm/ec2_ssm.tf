@@ -33,7 +33,7 @@ resource "aws_iam_instance_profile" "ssm_instance_profile" {
 
 # Read JSON file content
 data "local_file" "ssm_document_json" {
-  filename = "${path.module}/ssm_document.json"
+  filename = "${path.module}/config_instance/ssm_document.json"
 }
 
 # # Create an SSM Document
