@@ -27,6 +27,7 @@ resource "aws_instance" "web_server" {
   subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
   vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
   iam_instance_profile = aws_iam_instance_profile.ssm_instance_profile.name
+
   tags = {
     Name = "WebServer_Ansible"
   }
@@ -36,28 +37,32 @@ resource "aws_instance" "web_server" {
 resource "aws_security_group" "web_server_sg" {
   vpc_id = module.net.main_vpc_id
 
-  dynamic "ingress" {
-    for_each = var.sg_ports_for_internet
-    content {
-      from_port   = ingress.value
-      to_port     = ingress.value
-      protocol    = "tcp"
-      description = "Allow all request from anywhere"
-      cidr_blocks = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
-    }
-  }
-
-  egress {
-    from_port = 0
-    to_port   = 0
-    protocol = "-1" # Allow all output traffic
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   tags = {
     Name = "WebServerSecurityGroup"
   }
+}
+
+# Ingress rules for the security group
+resource "aws_security_group_rule" "web_server_sg_ingress" {
+  for_each = toset(var.sg_ports_for_internet)
+
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  ipv6_cidr_blocks = ["::/0"]
+  security_group_id = aws_security_group.web_server_sg.id
+}
+
+# Egress rule for the security group
+resource "aws_security_group_rule" "web_server_sg_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.web_server_sg.id
 }
 
 # # Run Ansible playbook after instance is ready
@@ -78,6 +83,7 @@ resource "aws_instance" "web_server2" {
   key_name      = aws_key_pair.deploy_by_ansible.key_name
   subnet_id = module.net.ec2_ansible_subnet_id # Subnet where the instance will be deployed
   vpc_security_group_ids = [aws_security_group.web_server_sg.id] # Attach the security group
+
   tags = {
     Name = "WebServer_Ansible2"
   }
