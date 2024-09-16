@@ -9,6 +9,7 @@ ANSIBLE_PLAYBOOK1="./config_instance/playbook.yml" # Ansible playbook1
 ANSIBLE_PLAYBOOK2="./config_instance/task4_1_playbook.yml" # Ansible playbook2
 INVENTORY_FILE="./config_instance/task4_1_ec2_inventory.ini"
 USER="ubuntu"                 # Name of user for ssh connection
+SSM_DOCUMENT_NAME="RunScript" # Name of the SSM document
 
 # Function for checking command
 command_exists() {
@@ -27,12 +28,18 @@ if ! command_exists ansible-playbook; then
   exit 1
 fi
 
+# Checking if AWS CLI is installed
+if ! command_exists aws; then
+  echo "AWS CLI not installed. Install AWS CLI to continue."
+  exit 1
+fi
+
 # Go to directory where is terraform scenario
 cd $TF_DIR
 
 # 1. Initialization of Terraform
 echo "Initialization of Terraform..."
-terraform init
+#terraform init
 
 # 2. Applying Terraform scenario
 echo "Run Terraform apply..."
@@ -100,4 +107,18 @@ echo "Inventory file $INVENTORY_FILE has been updated."
 
 ansible-playbook -i $INVENTORY_FILE -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' $ANSIBLE_PLAYBOOK2
 
-echo "Deploy is finished!"
+# 7. Run SSM Document on EC2 instance1
+echo "Associating SSM document with EC2 instance1..."
+INSTANCE_ID=$(terraform output -raw web_server1_instance_id) # Get instance ID
+
+if [ -z "$INSTANCE_ID" ]; then
+  echo "Could not retrieve instance ID for EC2 instance1. Exiting."
+  exit 1
+fi
+
+aws ssm send-command \
+  --instance-ids "$INSTANCE_ID" \
+  --document-name "$SSM_DOCUMENT_NAME" \
+  --comment "Run script via SSM on EC2 instance1"
+
+echo "SSM command sent successfully. Deploy is finished!"
