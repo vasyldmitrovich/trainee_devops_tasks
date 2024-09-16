@@ -44,7 +44,7 @@ resource "aws_security_group" "web_server_sg" {
 
 # Ingress rules for the security group
 resource "aws_security_group_rule" "web_server_sg_ingress" {
-  for_each = toset(var.sg_ports_for_internet)
+  for_each = toset([for port in var.sg_ports_for_internet : tostring(port)])
 
   type              = "ingress"
   from_port         = each.value
