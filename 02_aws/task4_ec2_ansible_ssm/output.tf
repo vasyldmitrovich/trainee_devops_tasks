@@ -10,3 +10,7 @@ output "web_server2_public_ip" {
 output "private_key_filename" {
   value = local_file.private_key.filename
 }
+
+output "web_server1_instance_id" {
+  value = aws_instance.web_server.id
+}
