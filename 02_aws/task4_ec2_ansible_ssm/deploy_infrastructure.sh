@@ -10,6 +10,8 @@ ANSIBLE_PLAYBOOK2="./config_instance/task4_1_playbook.yml" # Ansible playbook2
 INVENTORY_FILE="./config_instance/task4_1_ec2_inventory.ini"
 USER="ubuntu"                 # Name of user for ssh connection
 SSM_DOCUMENT_NAME="RunScript" # Name of the SSM document
+INVENTORY_FILE_VOLUME="./config_instance/volume_inventory.ini"
+ANSIBLE_PLAYBOOK3="./config_instance/volume_playbook.yml" # Ansible playbook volume
 
 # Function for checking command
 command_exists() {
@@ -116,9 +118,22 @@ if [ -z "$INSTANCE_ID" ]; then
   exit 1
 fi
 
-aws ssm send-command \
+# Try to send SSM command and continue if it fails
+if ! aws ssm send-command \
   --instance-ids "$INSTANCE_ID" \
   --document-name "$SSM_DOCUMENT_NAME" \
-  --comment "Run script via SSM on EC2 instance1"
+  --comment "Run script via SSM on EC2 instance1"; then
+  echo "Failed to send SSM command. Skipping and continuing script..."
+fi
 
-echo "SSM command sent successfully. Deploy is finished!"
+echo "SSM command sent successfully."
+
+# Run playbook to mount EBS volume and copy files to this volume
+cat > $INVENTORY_FILE_VOLUME <<EOL
+[web_server]
+my_web_server ansible_host=$WEB_SERVER1_IP ansible_user=$USER ansible_ssh_private_key_file=$PRIVATE_KEY_PATH
+EOL
+
+ansible-playbook -i $INVENTORY_FILE_VOLUME -e 'ansible_ssh_common_args="-o StrictHostKeyChecking=no"' $ANSIBLE_PLAYBOOK3
+
+echo "Deploy is finished!"
