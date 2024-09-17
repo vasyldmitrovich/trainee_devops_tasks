@@ -102,3 +102,20 @@ resource "aws_instance" "web_server2" {
 #     EOT
 #   }
 # }
+
+# Create EBS volume
+resource "aws_ebs_volume" "web_server_volume" {
+  availability_zone = aws_instance.web_server.availability_zone
+  size              = 10  # Size of volume GB
+  tags = {
+    Name = "web-server-volume"
+  }
+}
+
+# Attach EBS volume to EC2 instance
+resource "aws_volume_attachment" "web_server_attachment" {
+  device_name = "/dev/xvdf"  # or another free device, for example "/dev/sdh"
+  volume_id   = aws_ebs_volume.web_server_volume.id
+  instance_id = aws_instance.web_server.id
+  force_detach = true  # If you want turn off in case conflict
+}
