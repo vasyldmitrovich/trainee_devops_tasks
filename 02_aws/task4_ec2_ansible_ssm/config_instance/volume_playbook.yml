@@ -1,0 +1,41 @@
+---
+- name: Mount EBS volume and copy files
+  hosts: web_server
+  become: yes
+  tasks:
+
+    - name: Ensure the device is present
+      shell: "lsblk | grep /dev/xvdf"
+      register: volume_present
+      ignore_errors: true
+
+    - name: Create filesystem on the EBS volume if not present
+      filesystem:
+        fstype: ext4
+        dev: /dev/xvdf
+      when: volume_present.rc != 0
+
+    - name: Create mount point
+      file:
+        path: /mnt/ebs
+        state: directory
+
+    - name: Mount the volume
+      mount:
+        path: /mnt/ebs
+        src: /dev/xvdf
+        fstype: ext4
+        state: mounted
+
+    - name: Copy a file to the mounted volume
+      copy:
+        src: ./volume_script.sh
+        dest: /mnt/ebs/volume_script.sh
+
+    - name: Add entry to /etc/fstab for persistence
+      mount:
+        path: /mnt/ebs
+        src: /dev/xvdf
+        fstype: ext4
+        opts: defaults
+        state: present
