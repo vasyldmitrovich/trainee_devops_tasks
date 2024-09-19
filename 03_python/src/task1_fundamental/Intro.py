@@ -35,7 +35,8 @@ number3 = 2 ** 3 ** 2
 print("2**3**2 = ", number3)
 number4 = (2 ** 3) ** 2
 print("(2**3)**2 = ", number4)
-print('---', 'end block with sep= * , end=!!! two new line, and flush=True', '---', sep=" * ", end='!!!\n\n', flush=True)  # forcibly flush the stream.
+print('---', 'end block with sep= * , end=!!! two new line, and flush=True', '---', sep=" * ", end='!!!\n\n',
+      flush=True)  # forcibly flush the stream.
 
 print("Working with err")
 # Save the current stderr
@@ -65,9 +66,9 @@ print("Captured error message: ", error_message)
 
 print('-', 'New block', '-', sep=" ")
 
-#number = int(input("Input integer number: "))
+# number = int(input("Input integer number: "))
 number = int(6)
 print("Int variable number = int(6) is:", number, type(number))
-#num = input("by default input number is string: ")
+# num = input("by default input number is string: ")
 num = 'sss'
 print("num is: num = 'sss' ", num, type(num))

@@ -127,7 +127,6 @@ def recursive_function(counter):
 recursive_function(0)
 print("---")
 
-
 # Lambda function that adds two numbers
 add = lambda x, y: x + y
 
@@ -146,5 +145,3 @@ squared_set = set(squared_numbers)
 
 # Output the set
 print(squared_set)  # Example output: {1, 4, 9, 16, 25}
-
-

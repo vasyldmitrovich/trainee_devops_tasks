@@ -52,7 +52,8 @@ else:
 print("letter is: ", letter)
 
 weather = "raining"
-print(f"Ternary operator, weather={weather}, and ternary operator: ", "'Open Your umbrella' if weather == 'raining' else 'Wear your cap'")
+print(f"Ternary operator, weather={weather}, and ternary operator: ",
+      "'Open Your umbrella' if weather == 'raining' else 'Wear your cap'")
 print("Open Your umbrella" if weather == "raining" else "Wear your cap\n-----")
 
 status = 555
@@ -82,10 +83,11 @@ match status:
         print("Other error")
 
 item = ['evening', 'read a book']
-#item = ['morning', 'exercise']
+# item = ['morning', 'exercise']
 # item = ['night', 'sleep']
 # item = ['evening', 'have dinner']
-print("Using match case with list, check first element and set second element to temp var\n", "item = ['evening', 'read a book']",
+print("Using match case with list, check first element and set second element to temp var\n",
+      "item = ['evening', 'read a book']",
       "case ['evening', action]")
 match item:
     case ['evening', action]:
@@ -96,5 +98,3 @@ match item:
         print("The time is invalid.")
 
 print("---\n")
-
-

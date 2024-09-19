@@ -13,13 +13,16 @@ print(result2)  # Output: 8.0
 
 print("---")
 
+
 # This function will simply print a message when called
 def main():
     print("This script is being run directly.")
 
+
 # This function is for when the script is imported as a module
 def module_function():
     print("This script has been imported as a module.")
+
 
 # Now, we check the value of __name__
 if __name__ == "__main__":
@@ -61,5 +64,3 @@ compiled_pattern = re.compile(r"\bfalls\b")
 result = compiled_pattern.search(text)
 if result:
     print(f"Found '{result.group()}' at position {result.start()}")  # Output: Found 'falls' at position 19
-
-

@@ -129,7 +129,7 @@ for fruit in ['apple', 'banana', 'mango']: print("I like", fruit)
 print("---\n")
 
 print("Tuples")
-t = (1,24,55,83,97)
+t = (1, 24, 55, 83, 97)
 print(f"t: {t}, type(t): {type(t)}")
 print(f"convert tuples to list: tl = list(t)")
 tl = list(t)

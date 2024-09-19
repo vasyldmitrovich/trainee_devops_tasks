@@ -147,7 +147,8 @@ PI = 3.14
 PI += 1
 print("Create var PI and set new value, PI: ", PI)
 PI = 2.15
-print("PI: ", PI, f"variable PI from file constants.PI: {constants.PI}", f", and from class, constants.Constants.PI: ", constants.Constants.PI)
+print("PI: ", PI, f"variable PI from file constants.PI: {constants.PI}", f", and from class, constants.Constants.PI: ",
+      constants.Constants.PI)
 
 x = 3.14j
 print("Complex literal: ", x)
