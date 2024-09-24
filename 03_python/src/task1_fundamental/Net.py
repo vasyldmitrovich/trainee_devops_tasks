@@ -1,3 +1,5 @@
+import ssl
+
 import requests
 import http.client
 import urllib.request
@@ -20,14 +22,15 @@ def main():
     print("GET Request (requests):", response.json())
 
     print("\n=== Using http.client ===")
-    connection = http.client.HTTPSConnection('jsonplaceholder.typicode.com')
+    connection = http.client.HTTPSConnection('jsonplaceholder.typicode.com', context=ssl._create_unverified_context())
     connection.request('GET', '/posts/1')
     response = connection.getresponse()
     print("GET Request (http.client):", response.read().decode())
     connection.close()
 
     print("\n=== Using urllib ===")
-    response = urllib.request.urlopen('https://jsonplaceholder.typicode.com/posts/1')
+    response = urllib.request.urlopen('https://jsonplaceholder.typicode.com/posts/1',
+                                      context=ssl._create_unverified_context())
     data = response.read().decode()
     print("GET Request (urllib):", data)
 
@@ -35,7 +38,7 @@ def main():
 
     async def fetch_data_aiohttp():
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://jsonplaceholder.typicode.com/posts/1') as response:
+            async with session.get('https://jsonplaceholder.typicode.com/posts/1', ssl=False) as response:
                 data = await response.json()
                 print("GET Request (aiohttp):", data)
 
