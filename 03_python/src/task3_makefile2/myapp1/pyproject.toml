@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "my_app"
+version = "0.1.0"
+description = "A simple Python app"
+authors = ["Vasyl <vasyl.dmitrovich@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+coverage = "^7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
