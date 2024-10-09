@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Download JAR from S3
-aws s3 cp s3://aws-s3-bucket-for-snd-and-lambda-vbazh1/calculator-service-0.0.1-SNAPSHOT.jar ./your-file.jar
-
+aws s3api get-object --bucket aws-s3-bucket-for-snd-and-lambda-vbazh1 --key calculator-service-0.0.1-SNAPSHOT.jar
 # Check if the file was downloaded
 if [ -f "./your-file.jar" ]; then
     echo "JAR downloaded successfully!"
