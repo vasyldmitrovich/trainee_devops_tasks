@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Build</name>
+  <description />
+  <settings>
+    <options>
+      <option name="cleanBuild" value="true" />
+    </options>
+    <disabled-settings>
+      <setting-ref ref="DockerCommand" />
+    </disabled-settings>
+    <parameters>
+      <param name="env.AWS_ACCESS_KEY_ID" value="credentialsJSON:d64f5c40-dbf5-42a9-9595-87197292248f" spec="password" />
+      <param name="env.AWS_SECRET_ACCESS_KEY" value="credentialsJSON:efd1a0b4-9738-438f-ac49-2ef966ec0756" spec="password" />
+    </parameters>
+    <build-runners>
+      <runner id="simpleRunner" name="Get JAR from S3" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[chmod +x ./src.teamcity_builds/build_s3_download.sh
+./src.teamcity_builds/build_s3_download.sh]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_1" name="Print working directory" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="pwd" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Maven Build" type="Maven2">
+        <parameters>
+          <param name="goals" value="clean package" />
+          <param name="localRepoScope" value="agent" />
+          <param name="maven.path" value="%teamcity.tool.maven.DEFAULT%" />
+          <param name="pomLocation" value="pom.xml" />
+          <param name="target.jdk.home" value="%env.JAVA_HOME%" />
+          <param name="teamcity.build.workingDir" value="userstoryproj_back" />
+          <param name="teamcity.coverage.emma.include.source" value="true" />
+          <param name="teamcity.coverage.emma.instr.parameters" value="-ix -*Test*" />
+          <param name="teamcity.coverage.idea.includePatterns" value="*" />
+          <param name="teamcity.coverage.jacoco.patterns" value="+:*" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="teamcity.tool.jacoco" value="%teamcity.tool.jacoco.DEFAULT%" />
+          <param name="userSettingsSelection" value="userSettingsSelection:default" />
+        </parameters>
+      </runner>
+      <runner id="simpleRunner_1" name="Run tests" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[chmod +x ./src.teamcity_builds/run_tests.sh
+./src.teamcity_builds/run_tests.sh]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="DockerCommand" name="Build docker container" type="DockerCommand">
+        <parameters>
+          <param name="docker.command.type" value="build" />
+          <param name="docker.push.remove.image" value="true" />
+          <param name="dockerfile.path" value="src.teamcity_builds/Dockerfile" />
+          <param name="dockerfile.source" value="PATH" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="simpleRunner_2" name="" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="./src.teamcity_builds/scala_run.sh" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="TraineeDevopsTasks_HttpsGithubComVasyldmitrovichTraineeDevopsTasksGitRefsHeadsTeamcityCicd" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:teamcity_cicd" />
+          <param name="enableQueueOptimization" value="" />
+          <param name="groupCheckinsByCommitter" value="true" />
+          <param name="perCheckinTriggering" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+          <param name="triggerRules" value="+:." />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_1" type="perfmon">
+        <parameters>
+          <param name="teamcity.perfmon.feature.enabled" value="true" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+

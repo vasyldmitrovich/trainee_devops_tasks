@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vcs-root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="a267b96e-bcd3-450e-9820-7f8175d48995" type="jetbrains.git" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>https://github.com/vasyldmitrovich/trainee_devops_tasks.git</name>
+  <param name="agentCleanFilesPolicy" value="ALL_UNTRACKED" />
+  <param name="agentCleanPolicy" value="ON_BRANCH_CHANGE" />
+  <param name="authMethod" value="PASSWORD" />
+  <param name="branch" value="refs/heads/teamcity_cicd" />
+  <param name="ignoreKnownHosts" value="true" />
+  <param name="secure:password" value="credentialsJSON:d758937d-f133-49b4-b833-bd96724c0232" />
+  <param name="submoduleCheckout" value="CHECKOUT" />
+  <param name="teamcity:branchSpec" value="refs/heads/teamcity_cicd" />
+  <param name="url" value="https://github.com/vasyldmitrovich/trainee_devops_tasks.git" />
+  <param name="useAlternates" value="AUTO" />
+  <param name="username" value="vasyldmitrovich" />
+  <param name="usernameStyle" value="USERID" />
+</vcs-root>
+
