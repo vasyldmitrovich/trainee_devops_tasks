@@ -56,6 +56,10 @@ object Build : BuildType({
                 ./src.teamcity_builds/build_s3_download.sh
             """.trimIndent()
         }
+        script {
+            name = "Print working directory"
+            scriptContent = "pwd"
+        }
         maven {
             name = "Maven Build"
             goals = "clean package"
