@@ -57,5 +57,5 @@ v1.0.1
 ### My Actions<br>
 ![Check README](https://github.com/vasyldmitrovich/trainee_devops_tasks/actions/workflows/git_task1.yml/badge.svg)<br>
 Version: v1.0.0<br>
-Build Number: 155<br>
+Build Number: 156<br>
 -End-
