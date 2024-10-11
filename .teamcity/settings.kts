@@ -44,6 +44,7 @@ object Build : BuildType({
 
     vcs {
         root(DslContext.settingsRoot)
+        checkoutMode = CheckoutMode.CLEAN // Add Clean Checkout for all build
     }
 
     steps {
