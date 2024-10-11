@@ -9,3 +9,6 @@ else
     echo "Failed to download JAR from S3" >&2
     exit 1
 fi
+
+# Download repo with java app for maven step
+git clone https://github.com/vasyldmitrovich/userstoryproj_back.git

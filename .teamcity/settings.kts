@@ -54,6 +54,13 @@ object Build : BuildType({
                 ./src.teamcity_builds/build_s3_download.sh
             """.trimIndent()
         }
+        maven {
+            name = "Maven Build"
+            goals = "clean package"
+            workingDir = "./userstoryproj_back"  // Path to maven project
+            mavenVersion = bundled()
+            jdkHome = "%env.JAVA_HOME%"
+        }
         script {
             name = "Run tests"
             id = "simpleRunner_1"
