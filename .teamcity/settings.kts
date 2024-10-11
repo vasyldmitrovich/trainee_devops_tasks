@@ -63,7 +63,6 @@ object Build : BuildType({
         maven {
             name = "Maven Build"
             goals = "clean package"
-            workingDir = "userstoryproj_back"  // Path to maven project
             jdkHome = "%env.JAVA_HOME%"
         }
         script {

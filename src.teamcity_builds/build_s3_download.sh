@@ -16,3 +16,5 @@ if [ -d $REPO ]; then
 fi
 # Download repo with java app for maven step
 git clone https://github.com/vasyldmitrovich/userstoryproj_back.git
+
+cp -r ./$REPO/ .
