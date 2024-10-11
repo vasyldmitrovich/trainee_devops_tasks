@@ -10,5 +10,9 @@ else
     exit 1
 fi
 
+REPO="./userstoryproj_back"
+if [ -d $REPO ]; then
+  rm -rf $REPO
+fi
 # Download repo with java app for maven step
 git clone https://github.com/vasyldmitrovich/userstoryproj_back.git
