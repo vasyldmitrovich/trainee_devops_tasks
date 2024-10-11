@@ -2,6 +2,7 @@ import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
 /*
@@ -53,6 +54,12 @@ object Build : BuildType({
                 chmod +x ./src.teamcity_builds/build_s3_download.sh
                 ./src.teamcity_builds/build_s3_download.sh
             """.trimIndent()
+        }
+        maven {
+            name = "Maven Build"
+            goals = "clean package"
+            workingDir = "./userstoryproj_back"  // Path to maven project
+            jdkHome = "%env.JAVA_HOME%"
         }
         script {
             name = "Run tests"
