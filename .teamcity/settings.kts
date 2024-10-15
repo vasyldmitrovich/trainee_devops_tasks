@@ -60,6 +60,10 @@ object Build : BuildType({
             name = "Print working directory"
             scriptContent = "pwd"
         }
+        script {
+            name = "Set 17 java"
+            scriptContent = "sdk use java 17.0.12-tem"
+        }
         maven {
             name = "Maven Build"
             goals = "clean package"
