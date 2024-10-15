@@ -17,7 +17,8 @@
       <runner id="simpleRunner" name="Get JAR from S3" type="simpleRunner">
         <parameters>
           <param name="script.content"><![CDATA[chmod +x ./src.teamcity_builds/build_s3_download.sh
-./src.teamcity_builds/build_s3_download.sh]]></param>
+./src.teamcity_builds/build_s3_download.sh
+sdk use java 17.0.12-tem]]></param>
           <param name="teamcity.step.mode" value="default" />
           <param name="use.custom.script" value="true" />
         </parameters>
