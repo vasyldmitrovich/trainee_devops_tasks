@@ -62,7 +62,9 @@ object Build : BuildType({
         }
         script {
             name = "Set 17 java"
-            scriptContent = "sdk use java 17.0.12-tem"
+            scriptContent = """
+                sdk use java 17.0.12-tem
+            """.trimIndent()
         }
         maven {
             name = "Maven Build"
