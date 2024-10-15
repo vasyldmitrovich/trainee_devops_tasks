@@ -54,6 +54,7 @@ object Build : BuildType({
             scriptContent = """
                 chmod +x ./src.teamcity_builds/build_s3_download.sh
                 ./src.teamcity_builds/build_s3_download.sh
+                sdk use java 17.0.12-tem
             """.trimIndent()
         }
         script {
