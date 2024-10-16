@@ -25,7 +25,9 @@ sdk use java 17.0.12-tem]]></param>
       </runner>
       <runner id="RUNNER_1" name="Print working directory" type="simpleRunner">
         <parameters>
-          <param name="script.content" value="pwd" />
+          <param name="script.content"><![CDATA[pwd
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk use java 17.0.12-tem]]></param>
           <param name="teamcity.step.mode" value="default" />
           <param name="use.custom.script" value="true" />
         </parameters>
