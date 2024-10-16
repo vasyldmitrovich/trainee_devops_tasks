@@ -8,6 +8,7 @@
     </options>
     <disabled-settings>
       <setting-ref ref="DockerCommand" />
+      <setting-ref ref="RUNNER_2" />
     </disabled-settings>
     <parameters>
       <param name="env.AWS_ACCESS_KEY_ID" value="credentialsJSON:d64f5c40-dbf5-42a9-9595-87197292248f" spec="password" />
