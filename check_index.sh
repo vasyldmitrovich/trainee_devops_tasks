@@ -1,6 +1,6 @@
-﻿﻿#!/bin/bash
+#!/bin/bash
 
-# Перевірка наявності файлу index.html у корені репозиторію
+# Check that file index.html is in repo
 if [ -f index.html ]; then
   echo "index.html exists"
   exit 0
