@@ -48,3 +48,4 @@ To navigate to a specific task, click on the task name in the tables above. Each
 v1.0.1
 ---
 
+- Branch **main**: index.html file present: ✅
