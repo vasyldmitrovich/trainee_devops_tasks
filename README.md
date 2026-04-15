@@ -50,3 +50,4 @@ v1.0.1
 
 - Branch **main**: index.html file present: ✅
 - Branch **main**: index.html file present: ✅
+- Branch **python_tasks**: index.html file present: ✅
